@@ -2,9 +2,11 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+
 public class BHV_Storyline : MonoBehaviour 
 {	//Management of interaction involving the story.
-	
+	public Tome SelectedTome = null ; //if not a Tome, it is a FullTimeLine
+
 	public GameObject Pawn_Male;
 	public GameObject Pawn_Female;
 	
@@ -12,173 +14,220 @@ public class BHV_Storyline : MonoBehaviour
 	private List<Evvent> StoryLine;
 	
 	private Dictionary<string,GameObject> CharacterDict;
-	
 	private Dictionary<string,List<Evvent>> CharacterMotion; // CharName => <event1,event2>
-	
-	private Dictionary<GameObject,GameObject> CharacterComponents; // CharName => CharacterMotion
+	private Dictionary<GameObject,LineRenderer> CharacterPath; // CharName => LineRenderer
 
 	public Font MyFont;
-	
-	
+
+	public TextAsset DatabaseDumpFile;
 	
 	void Start () 
 	{
 		this.TheDatabase = CLS_Database.Instance;
-		
+				
 		this.CharacterDict = new Dictionary<string, GameObject>();
 		this.CharacterMotion = new Dictionary<string, List<Evvent>>();
-		this.CharacterComponents = new Dictionary<GameObject, GameObject>();
-		
-		string Buffer=""+
-					"01|The seed is strong|King's Landing|Robert,Cersei,Joffrey,Jaime,Tyrion, Tommen, Myrcella\n"+
-					"05|A sister's accusation|Winterfell|Catelyn\n"+
-					"10|New Hand|Winterfell|Eddard,Catelyn,Robb,Bran,Rickon,Sansa,Arya,Theon,Jon,Robert,Cersei,Joffrey,Jaime,Tyrion\n"+
-					"11|Witness fall|Winterfell|Bran,Jaime,Cersei\n"+
-					//"15|Childish quarrels|-|Eddard,Sansa,Arya,Robert,Cersei,Joffrey\n"+
-					"20|Hand Tourney|King's Landing|Eddard,Sansa,Arya,Robert,Cersei,Joffrey,Jaime,Tyrion\n"+
-					"22|Noble Brothel|King's Landing|Catelyn,Littlefinger\n"+
-					"25|Putch Proposal|King's Landing|Eddard,Renly\n"+
-					"30|Crow's vows|Castle Black|Jon,Sam\n"+
-					"40|Little Meeting|-|Catelyn,Tyrion\n"+
-					"45|Bethroted|King's Landing|Sansa,Joffrey\n"+
-					"50|Boar Hunt|Kingswood|Robert,Lancel?\n"+
-					"50|Threat|King's Landing|Eddard,Cersei\n"+
-					"55|Open prison|Eyrie|Tyrion,Lysa\n"+
-					"60|Headless Realm|Red Keep|Eddard,Joffrey\n"+
-					"65|King in the north|Winterfell|Robb,Theon,Catelyn\n"+
-					"66|Yoren Hiring|-|Arya\n"+
-					"70|Frey's Pact|The Twins|Robb,Theon,Catelyn\n"+
-					"80|Mountains Clansmen hiring|Bloody Gate|Tyrion\n"+
-					"90|Riverrun Trap|Riverrun|Robb,Catelyn,Jaime";
-		
-		
-		//StoryLine creation from Buffer analysis	
-		string[] LineList = Buffer.Split('\n');
-		
-		for(int i=0; i<LineList.Length;i++)
-		{
-			string[] Tokenize = LineList[i].Split('|');
-			
-			Evvent newEvent = new Evvent();
-			newEvent.HappeningTime = float.Parse( Tokenize[0] ) *0.01f;
-			newEvent.Name = Tokenize[1];
-			
-			newEvent.Location = GameObject.Find(Tokenize[2]);  
-			if(newEvent.Location == null)
-			{	//Location unknown, looking for matching event name:
-				newEvent.Location = GameObject.Find(Tokenize[1]);
-				if(newEvent.Location == null)//BUG
-					Debug.LogError("ERROR, no location found @ ="+Tokenize[1]+" and "+Tokenize[2]);
-			}
-			
-			string[] CharacterList = Tokenize[3].Split(',');
-			for(int j=0; j<CharacterList.Length;j++)
-			{
-				string CharacterName = CharacterList[j];
-				//Debug.Log ("CharacterName="+CharacterName);
-				if(! this.CharacterDict.ContainsKey(CharacterName))
-				{
-					GameObject newCharacter = GameObject.Instantiate(this.Pawn_Male) as GameObject;
-					newCharacter.name = CharacterName;
-					
-					//newCharacter.transform.Rotate(new Vector3(0.0f,180.0f,0.0f),Space.Self);
-					newCharacter.transform.Rotate(new Vector3(-30.0f,180.0f,0.0f),Space.Self);
-					
-					this.CharacterDict[CharacterName] = newCharacter;
-					
-					Transform[] children = newCharacter.GetComponentsInChildren<Transform>();
-					for(int k=0;k<children.Length;k++)
-					{
-						if (children[k].name=="Label")
-						{
-							Transform LabelTransform = children[k];
-							LabelTransform.Rotate(new Vector3(0.0f,180.0f,0.0f),Space.Self);  //to clean in mode
-							
-							//GUI_Label comp = children[k].gameObject.AddComponent<GUI_Label>() as GUI_Label;
-							//comp.MyFont = this.MyFont;
-							//comp.Label = CharacterName;
-							
-							/*
-							TextMesh MyTextMesh =  LabelTransform.gameObject.gameObject.AddComponent("TextMesh") as TextMesh;
-							MyTextMesh.text = CharacterName ;
-							MyTextMesh.transform.position = LabelTransform.position;
-							MyTextMesh.font = MyFont;
-							MeshRenderer mr = LabelTransform.gameObject.AddComponent("MeshRenderer") as MeshRenderer;
-							mr.material = MyFont.material;
-							mr.material.color = new Color(0.8f,0.2f,0.2f,1.0f);//Color.red;
-							*/
-							LabelTransform.localScale = new Vector3(50.0f,50.0f,50.0f); //TOCLEAN
-							
-						}
-						
-						if (children[k].name=="Body" || children[k].name=="Head")
-						{
-							children[k].gameObject.renderer.material.color = getCharacterColor(CharacterName);
-						}
+		this.CharacterPath = new Dictionary<GameObject, LineRenderer>();
 
+
+		//Deactivate Kernel MainMenu (and read player options)
+		GameObject Kernel = GameObject.FindGameObjectWithTag("Core");
+		GUI_MainMenu KernelComp = Kernel.GetComponent<GUI_MainMenu>();
+
+		//this.SelectedTome = this.TheDatabase.TomeList[0];	//TODO: change that dynamically, but for now, all tomes are computed.
+		this.SelectedTome = this.TheDatabase.TomeDict[KernelComp.SelectedTome];	
+		Kernel.SetActive(false);
+
+		//Start to read StoryDatabase.
+		string[] LineBuffer = DatabaseDumpFile.text.Split('\n');
+		Debug.Log ("Read "+LineBuffer.Length+" lines from "+DatabaseDumpFile.name);
+
+		foreach(string currentLine in LineBuffer)
+		{
+			if(currentLine.Contains("\t"))
+			{
+				string[] TokkenizedLine = currentLine.Split('\t');
+				if( TokkenizedLine[8].Length>0 )	//We consider only the lines with Characters defined in it.
+				{
+					//Debug.Log (currentLine);
+
+					int Year;
+					int.TryParse(TokkenizedLine[0],out Year);
+
+					int Month,Day;
+					int.TryParse(TokkenizedLine[1].Split('/')[0], out Month);
+					int.TryParse(TokkenizedLine[1].Split('/')[1], out Day);
+
+					string EventName = TokkenizedLine[2];
+
+					string ChapterCode = TokkenizedLine[3];
+					string ChapterCharacter = TokkenizedLine[4];
+					string BookCode = TokkenizedLine[5];
+					int Chapter;
+					int.TryParse(TokkenizedLine[6],out Chapter);
+
+					string Citation = TokkenizedLine[7];
+
+					string[] Characters = TokkenizedLine[8].Trim().Split(',');
+
+					string Location = TokkenizedLine[9];
+
+					Evvent newEvent = new Evvent();
+					newEvent.Date = new System.DateTime(Year, Month, Day);
+					newEvent.Name = EventName;
+
+					if(BookCode!="")
+						if(BookCode!="TWOW")
+							newEvent.Book = this.TheDatabase.TomeDict[BookCode];
+
+
+					newEvent.Characters = new List<GameObject>();
+					foreach(string currentCharacterName in Characters)
+					{
+						string currentCharacterName2 = currentCharacterName.Trim();
+						//currentCharacterName = currentCharacterName.Trim();
+						if(this.CharacterDict.ContainsKey(currentCharacterName2) )
+						{
+							//Debug.LogWarning ("this.CharacterDict["+currentCharacterName+"]="+this.CharacterDict[currentCharacterName].name);
+						}
+						else
+						{
+							//Debug.Log (currentCharacterName+" is NOT in the Dict!!!");
+							this.createCharacterPawn(currentCharacterName2);
+						}
+						newEvent.Characters.Add( this.CharacterDict[currentCharacterName2] );
+
+						if(! CharacterMotion.ContainsKey(currentCharacterName2))
+							CharacterMotion[currentCharacterName2] = new List<Evvent>();
+						CharacterMotion[currentCharacterName2].Add(newEvent);
 					}
+					
+					newEvent.Location = GameObject.Find(Location);
+					if(newEvent.Location == null)
+						Debug.LogError("ERROR, no location found for ="+Location);
+					//Debug.Log (newEvent.Location.name);
+
+					//Now we have to set the HappeningTime:
+					newEvent.HappeningTime = this.SelectedTome.getRatio(newEvent.Date);
 				}
 				
-				newEvent.Characters.Add( this.CharacterDict[CharacterName] );
+				//Now we have to add a starting point for every characters:
+				//foreach(string CharacterName in this.CharacterMotion.Keys)
+				//{
+				//	this.CharacterMotion[0.0f] = Vector3.zero;
+				//}
 				
-				if(! CharacterMotion.ContainsKey(CharacterName))
-					CharacterMotion[CharacterName] = new List<Evvent>();
-				CharacterMotion[CharacterName].Add(newEvent);
-								
+
+
 			}
 		}
-		
-		//Now we have to add a starting point for every characters:
-		//foreach(string CharacterName in this.CharacterMotion.Keys)
-		//{
-		//	this.CharacterMotion[0.0f] = Vector3.zero;
-		//}
-		
-		//Debug
+
+		createMotionPaths();
+
+		//Debuggin StoryLine
+		string LoggedBuffer="";
 		foreach( KeyValuePair<string, List<Evvent>> kvp in this.CharacterMotion)
 		{
 			Debug.Log ("CharacterName="+kvp.Key);
+			Tome currentBook=null;
+			LoggedBuffer+="\nCharacterName="+kvp.Key;
 			foreach( Evvent ev in kvp.Value)
-				Debug.Log ("\t     "+ev.HappeningTime +" => "+ ev.Name);
+			{
+				if(ev.Book!=null)
+				{
+					if(ev.Book!=currentBook)
+					{
+						currentBook = ev.Book;
+						LoggedBuffer+="\n\t"+ ev.Book.CodeName;
+					}
+				}
+
+				int percent = Mathf.RoundToInt(ev.HappeningTime*100f);
+				Debug.Log ("\t     "+ percent+"% => "+ ev.Location.name+" ("+ev.Name+")");
+				LoggedBuffer+="\n\t"+ percent+"% => "+ ev.Location.name+" ("+ev.Name+")";
+			}
 		}
-		
+		Debug.LogWarning(LoggedBuffer);
+
+	}
+
+	void createMotionPaths()
+	{
 		//MotionPath Creation
+		float YOffset = 333f;
+		float LineWidth = 50f;
 		foreach( KeyValuePair<string, List<Evvent>> kvp in this.CharacterMotion)
 		{
-			Debug.Log(kvp.Key);
-			Debug.Log(kvp.Value.Count);
-			
 			if(kvp.Value.Count>=2)
 			{
-				GameObject nulle = new GameObject(kvp.Key+"_Motion");
-				BHV_PathTime comp = nulle.AddComponent<BHV_PathTime>() as BHV_PathTime;
+				GameObject Line = new GameObject(kvp.Key+"_Motion");
+				LineRenderer TheLineRendererComp = Line.AddComponent<LineRenderer>();
+				TheLineRendererComp.SetWidth(LineWidth,LineWidth);
 				
-				comp.CharacterColor = getCharacterColor(kvp.Key);
+				//TheLineRendererComp.material = new Material (Shader.Find("Diffuse"));
+				TheLineRendererComp.material = new Material (Shader.Find("Mobile/Unlit (Supports Lightmap)"));
+				TheLineRendererComp.material.color = getCharacterColor(kvp.Key);
+				Line.SetActive(false);
 				
-				List<GameObject> temp = new List<GameObject>();
+				CharacterPath[ this.CharacterDict[kvp.Key] ] = TheLineRendererComp;
+				TheLineRendererComp.SetVertexCount(kvp.Value.Count);
 				for(int i=0;i<kvp.Value.Count;i++)
-					temp.Add(kvp.Value[i].Location);
-					//temp[i] = kvp.Value[i].Location;
-				comp.DestinationArray = temp;
-				
-				//comp.enabled = false;
-				nulle.SetActive(false);
-				
-				GameObject Character = this.CharacterDict[kvp.Key];
-				//nulle.transform.parent = Character.transform;
-				
-				//this.CharacterComponents[Character] = comp;
-				this.CharacterComponents[Character] = nulle;
+				{
+					TheLineRendererComp.SetPosition(i, kvp.Value[i].Location.transform.position + new Vector3(0,YOffset,0)); 
+				}
 			}
 		}	
 	}
-	
+
+
 	void Update () 
 	{
 		GUI_Main comp = this.GetComponent<GUI_Main>() as GUI_Main;
 		updateCharacters(comp.ScrollValue);
 	}
-	
+
+
+	void createCharacterPawn(string _CharacterName)
+	{
+		Debug.Log ("Creating pawn for char="+_CharacterName);
+		GameObject newCharacter = GameObject.Instantiate(this.Pawn_Male) as GameObject;
+		newCharacter.name = _CharacterName;
+		newCharacter.transform.Rotate(new Vector3(-30.0f,180.0f,0.0f),Space.Self);
+		
+		Transform[] children = newCharacter.GetComponentsInChildren<Transform>();
+		for(int k=0;k<children.Length;k++)
+		{
+			if (children[k].name=="Label")
+			{
+				Transform LabelTransform = children[k];
+				LabelTransform.Rotate(new Vector3(0.0f,180.0f,0.0f),Space.Self);  //to clean in mode
+				
+				//GUI_Label comp = children[k].gameObject.AddComponent<GUI_Label>() as GUI_Label;
+				//comp.MyFont = this.MyFont;
+				//comp.Label = CharacterName;
+				
+				/*
+				TextMesh MyTextMesh =  LabelTransform.gameObject.gameObject.AddComponent("TextMesh") as TextMesh;
+				MyTextMesh.text = CharacterName ;
+				MyTextMesh.transform.position = LabelTransform.position;
+				MyTextMesh.font = MyFont;
+				MeshRenderer mr = LabelTransform.gameObject.AddComponent("MeshRenderer") as MeshRenderer;
+				mr.material = MyFont.material;
+				mr.material.color = new Color(0.8f,0.2f,0.2f,1.0f);//Color.red;
+				*/
+				LabelTransform.localScale = new Vector3(50.0f,50.0f,50.0f); //TOCLEAN
+				
+			}
+			/*
+				if (children[k].name=="Body" || children[k].name=="Head")
+				{
+					children[k].gameObject.renderer.material.color = getCharacterColor(CharacterName);
+				}
+			*/
+		}		
+
+		this.CharacterDict[_CharacterName] = newCharacter;
+	}
 	
 	void updateCharacters(float _CurrentTimeValue)
 	{
@@ -198,9 +247,9 @@ public class BHV_Storyline : MonoBehaviour
 				ratio = Mathf.PI*2*ratio;
 				float Radius=200.0f;
 				Vector3 offset = new Vector3( Mathf.Cos(ratio)*Radius, 0.0f, Mathf.Sin(ratio)*Radius );
-				
+
 				WayPoints[ev.HappeningTime] = ev.Location.transform.position +offset;
-				//Debug.Log (ev.HappeningTime+" => "+ev.Location.name);
+
 			}
 			float min = getMinInDict(WayPoints);
 			WayPoints[0.0f] = WayPoints[min];
@@ -319,8 +368,8 @@ public class BHV_Storyline : MonoBehaviour
 		CharacterColorDict["Catelyn"] = new Color(0.601f,1.0f,0.894f);
 		
 		CharacterColorDict["Cersei"] = new Color(0.725f,0.114f,0.318f);
-		CharacterColorDict["Daenery"] = new Color(1.0f,0.0f,0.0f);
-		CharacterColorDict["Eddard"] = new Color(0.550f,0.645f,0.753f);
+		//CharacterColorDict["Daenery"] = new Color(1.0f,0.0f,0.0f);
+		CharacterColorDict["Ned"] = new Color(0.550f,0.645f,0.753f);
 		
 		CharacterColorDict["Jaime"] = new Color(0.5f,0.5f,0.5f);
 		CharacterColorDict["Joffrey"] = new Color(0.873f,0.882f,0.484f);
@@ -343,7 +392,8 @@ public class BHV_Storyline : MonoBehaviour
 		}
 		else
 		{
-			return Color.black;
+			//return Color.black;
+			return Color.yellow;
 		}	
 	}
 	
@@ -365,16 +415,18 @@ public class BHV_Storyline : MonoBehaviour
 		if(Screen.height-targetScreenPosition.y < LetterWidth*1.5f )
 			targetScreenPosition.y = Screen.height- LetterWidth*1.5f ;
 				 */
-		
+		GUIContent current = new GUIContent( _Character.name);
+
+		float neededWidth = GUI.skin.GetStyle("button").CalcSize(current).x;
+			
 		//GUI.Label( new Rect(targetScreenPosition.x,Screen.height-targetScreenPosition.y,LetterWidth*theName.Length,LetterWidth*1.5f) , theName,LabelStyle);//MAGIC 0.5f: we assume that in average a width letter is half of its height in our font
-		if(GUI.Button( new Rect(targetScreenPosition.x,Screen.height-targetScreenPosition.y,100.0f,25.0f) , _Character.name))
+		if(GUI.Button( new Rect(targetScreenPosition.x,Screen.height-targetScreenPosition.y,neededWidth,25.0f) , current))
 		{
 			//Declaring if following :
-			if(this.CharacterComponents[_Character].activeSelf)
+			if(this.CharacterPath[_Character].gameObject.activeSelf)
 				Camera.main.GetComponent<BHV_CameraMotion>().Following = null;
 			else
 				Camera.main.GetComponent<BHV_CameraMotion>().Following = _Character;
-			
 			
 			toggleCharacterSelection(_Character);
 			
@@ -384,8 +436,8 @@ public class BHV_Storyline : MonoBehaviour
 	
 	void toggleCharacterSelection(GameObject _Character)
 	{
-		
-		this.CharacterComponents[_Character].SetActive( ! this.CharacterComponents[_Character].activeSelf );
+		this.CharacterPath[_Character].gameObject.SetActive( ! this.CharacterPath[_Character].gameObject.activeSelf );
+		//this.CharacterComponents[_Character].SetActive( ! this.CharacterComponents[_Character].activeSelf );
 		
 	}
 	

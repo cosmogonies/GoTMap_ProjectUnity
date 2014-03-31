@@ -91,7 +91,8 @@ public class BHV_CameraMotion : MonoBehaviour
 		
 		if(Input.GetMouseButton(0))
 		{
-			if(Screen.height - Input.mousePosition.y>TITLE_HEIGHT) //do not activate when
+			//if(Screen.height - Input.mousePosition.y>TITLE_HEIGHT) //do not activate when
+			if(Screen.height - Input.mousePosition.y>TITLE_HEIGHT*1.5f)
 			{
 				
 				//Vector3 delta = Input.mousePosition - LastMousePosition;

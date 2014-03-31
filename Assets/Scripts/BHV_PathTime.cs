@@ -22,13 +22,13 @@ public class BHV_PathTime : MonoBehaviour
 	private bool isInitialising=true;
 	
 	//a "segment" is a path portion materialised as moving cubes.
-	private List<GameObject> MovingSegments;	
-	public int SEGMENT_OFFSET=5; //frame separated each segments	
-	private Vector3 SEGMENT_SCALE = new Vector3( 30.0f, 30.0f, 100.0f );
+	//private List<GameObject> MovingSegments;	
+	//public int SEGMENT_OFFSET=5; //frame separated each segments	
+	//private Vector3 SEGMENT_SCALE = new Vector3( 30.0f, 30.0f, 100.0f );
 	
 	void Start () 
 	{
-		MovingSegments = new List<GameObject>();
+		//MovingSegments = new List<GameObject>();
 		this.GoalDict = new Dictionary<GameObject, int>();
 		
 		//All segments are created at the first destination.		
@@ -47,7 +47,8 @@ public class BHV_PathTime : MonoBehaviour
 //			this.GoalDict[newOne] = 1;
 //		}
 	}
-	
+
+	/*
 	GameObject createSegment()
 	{
 		GameObject newOne = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -61,14 +62,20 @@ public class BHV_PathTime : MonoBehaviour
 		this.MovingSegments.Add(newOne);
 		return newOne;
 	}
-	
+	*/
+
 	void Update () 
 	{
 		//Getting current Time (ulgy method):
 		GUI_Main comp = Camera.main.GetComponent<GUI_Main>() as GUI_Main;
 		float TimeScrubbRatio = comp.ScrollValue;
-		
-		
+
+
+
+
+
+
+		/*
 		if (this.isInitialising)
 		{
 			if((Time.renderedFrameCount)%this.SEGMENT_OFFSET==0 )
@@ -76,6 +83,10 @@ public class BHV_PathTime : MonoBehaviour
 				this.MovingSegments.Add( createSegment() );
 			}
 		}
+		*/
+
+
+		/*
 		foreach( GameObject currentSegment in this.MovingSegments)
 		{
 			GameObject currentGoal = this.DestinationArray[this.GoalDict[currentSegment]];			
@@ -111,5 +122,6 @@ public class BHV_PathTime : MonoBehaviour
 			#endregion
 			
 		}
+		*/
 	}
 }
