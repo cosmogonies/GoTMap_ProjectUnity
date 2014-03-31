@@ -6,18 +6,20 @@
 297	12/21	Dany/Drogo Wedding	Dany 2 	Daenerys	AGOT	12	Unclear how much time has passed. Mormont has been "their constant companion" since Dany 1. Khalasar has come outside the walls of Pentos.				
 298											
 298	2/10	Joffrey's name day					Tourney where Littlefinger bets the dagger on Jaime				
-298	2/24	Jon Arryn Dies					Ned 1- A fortnight after Joff's nameday tourney, Jon Arryn was dead. Cersei and the royal children were not in the city, they are on their way to visit Casterly Rock (Ned 5).	Cersei, Tommen, Joffrey, Myrcella	Casterly Rock		
+298	2/24				AGOT			Renly	RenlyInit		
+298	2/24				AGOT			Robert, Jaime	King's Landing		
+298	2/24	Jon Arryn Dies					Ned 1- A fortnight after Joff's nameday tourney, Jon Arryn was dead. Cersei and the royal children were not in the city, they are on their way to visit Casterly Rock (Ned 5).	Cersei, Tommen, Joffrey, Myrcella, Tywin	Casterly Rock		
 298	3/22	Gared caught, direwolves found	Bran 1 	Bran	AGOT	2					
-298	3/22	Message from KL. Jon Arryn dead, Robert is on his way to Winterfell.	Cat 1 	Catelyn	AGOT	3	Mentioned that Tommen is 7	Catelyn, Ned, Robb, Sansa, Bran, Theon	Winterfell		
+298	3/22	Message from KL. Jon Arryn dead, Robert is on his way to Winterfell.	Cat 1 	Catelyn	AGOT	3	Mentioned that Tommen is 7	Catelyn, Ned, Robb, Sansa, Bran, Theon, Rickon, Arya	Winterfell		
 298	4/1	Arya turns 9									
 298	4/10	Viserys humiliated, Dany becomes pregnant	Dany 3	Daenerys	AGOT	24	Khalasar leaves the day after Dany's wedding. Many days pass -- through Norvos, fording rivers, riding through Forest of Qohor for "half a moon", and into the Dothraki Sea.				
 298	5/20	Robert arrives in Winterfell	Ned 1	Eddard	AGOT	5		Cersei, Jaime, Tyrion, Tommen, Joffrey, Myrcella, Robert	Winterfell		
 298	5/20	Welcoming feast	Jon 1	Jon	AGOT	6					
 298	5/25	Dany's 14th Birthday. On "the far side of the Dothraki sea"	Dany 3	Daenerys	AGOT	24	Realizes she's pregnant. "It was her fourteenth name day"				
-298	5/25	Decision to go South, Jon to NW	Cat 2	Catelyn	AGOT	7	A few days later. "Your brother Benjen came to me about Jon a few days ago. It seems the boy aspires to take the black.” Decision to depart in a fortnight.	Catelyn, Ned, Robb, Sansa, Bran, Theon, Jon	Winterfell		
+298	5/25	Decision to go South, Jon to NW	Cat 2	Catelyn	AGOT	7	A few days later. "Your brother Benjen came to me about Jon a few days ago. It seems the boy aspires to take the black.” Decision to depart in a fortnight.	Catelyn, Ned, Robb, Sansa, Bran, Theon, Jon, Rickon	Winterfell		
 298	5/26	Crooked stitches	Arya 1	Arya	AGOT	8	No contextual evidence for when this chapter happens.				
 298	6/9	Viserys, mounted again, arrives in Vaes Dothrak	Dany 4	Daenerys	AGOT	37					
-298	6/9	Bran pushed from window by Jaime Lannister	Bran 2	Bran	AGOT	9	Supposed to depart for the south the next day.	Bran, Cersei, Jaime	Winterfell		
+298	6/9	Bran pushed from window by Jaime Lannister	Bran 2	Bran	AGOT	9	Supposed to depart for the south the next day.	Bran, Cersei, Jaime, Rickon	Winterfell		
 298	6/14	Tyrion slaps Joffrey, wolves howling	Tyrion 1	Tyrion	AGOT	10	Bran has been unconscious "four days with no change."	Tyrion, Joffrey	Winterfell		
 298	6/22	Everyone leaves Winterfell	Jon 2	Jon	AGOT	11	Cat has been by Bran's bed "close on a fortnight."				
 298	6/30	Assassin to kill Bran	Cat 3	Catelyn	AGOT	15	"Ned and the girls were eight days gone " Robb still 14.	Bran, Catelyn	Winterfell		
@@ -28,11 +30,12 @@
 298	7/21	Benjen goes ranging					Left four days after the group arrived at the Wall				
 298	7/23	Sam is 15 and kicked out of Horn Hill					No contextual evidence, must use travel speed rates to determine				
 298	7/31	Robb turns 16					Must be older than Jon				
-298	8/15	Ruby Ford, Nymeria attacks Joff	Sansa 1	Sansa	AGOT	16	Crossing the Neck had taken 12 days	Cersei, Jaime, Tyrion, Tommen, Joffrey, Myrcella, Robert, Ned, Rob, Sansa, Theon	Ruby Ford		
+298	8/15	Ruby Ford, Nymeria attacks Joff	Sansa 1	Sansa	AGOT	16	Crossing the Neck had taken 12 days	Cersei, Jaime, Tommen, Joffrey, Myrcella, Robert, Ned, Sansa, Arya	Ruby Ford		
 298	8/19	At Darry. Lady killed.	Ned 3	Eddard	AGOT	17	"His men had been searching for Arya for four days now"				
 298	8/24	Jon's 15th birthday					Benjen had said he'd be back by Jon's name day				
+298	8/25	Renly rejoined the company			AGOT			Cersei, Jaime, Tommen, Joffrey, Myrcella, Robert, Ned, Sansa, Arya, Renly	RenlyToMeetKingRobert		
 298	8/27	Bran wakes up	Bran 3	Bran	AGOT	18	Sees Ned pleading before the king for Lady, Cat at sea.	Bran, Robb	Winterfell		
-298	8/28	Group arrives in KL. Summoned by LF the same day.	Cat 4	Catelyn	AGOT	19	Took a fast ship from White Harbor, though winds were against them most of the voyage.	Cersei, Jaime, Tyrion, Tommen, Joffrey, Myrcella, Robert, Ned, Rob, Sansa, Theon, LittleFinger	King's Landing		
+298	8/28	Group arrives in KL. Summoned by LF the same day.	Cat 4	Catelyn	AGOT	19	Took a fast ship from White Harbor, though winds were against them most of the voyage.	Cersei, Jaime, Tommen, Joffrey, Myrcella, Robert, Ned, Sansa, LittleFinger, Arya	King's Landing		
 											
 298	9/2	Ned arrives in KL, LF brings him to Cat. They talk and Ned tells her to return to Winterfell at once.	Ned 4	Eddard	AGOT	21	"The last fortnight of their journey [since Lady's death] had been a misery"	LittleFinger, Ned, Catelyn	King's Landing		
 298	9/7	Jon gets news that Bran will live	Jon 3	Jon	AGOT	20	Jon's 15th name day had come and gone "a fortnight past"	Jon	The Wall		
@@ -54,6 +57,7 @@
 298	10/28	Jaime ambushes Ned	Ned 9	Eddard	AGOT	36	The same day	Jaime, Ned	King's Landing		
 298	10/29	Robb prepares war after Cat's message						Robb	Winterfell		
 298	11/4	 Slept 7 nights, Robert goes hunting	Ned 10	Eddard	AGOT	40	Ned is out for “Six days and seven nights.” Robert will go hunting on the morrow	Robert	Boar Hunt		
+298	11/5	Battle at the Mummer’s Ford	Ned 11	Eddard	AGOT	43		Tywin	Red Fork		
 298	11/5	 Sends the BwB against Gregor	Ned 11	Eddard	AGOT	44	While armies had been massing at Golden Tooth, Gregor attacked Sherrer and Wendish Town. Robert might not return for days.				
 298	11/5	Enter Sam	Jon 4 	Jon	AGOT	27	"A few nights later, at Jon’s urging, he joined them for the evening meal, taking a place on the bench beside Halder. It was another fortnight before he found the nerve to join their talk, but in time he was laughing at Pyp’s faces and teasing Grenn with the best of them."	Sam, Jon	The Wall		
 298	11/6	Sansa learns she has to go away from KL	Sansa 3 	Sansa	AGOT		Same night as Ned 11. The next morning, watches Beric ride out. Ned says the girls will leave KL as soon as he can arrange a ship.	Sansa	King's Landing		
@@ -87,13 +91,13 @@
 298	12/25	Renly crowned himself king						Renly	King's Landing		
 298	12/25	At the Twins	Cat 9 	Catelyn	AGOT	60	Host exits the Neck. The next morning, Blackfish reports back with news of Edmure's defeat and capture. By midday they're at the Twins. They cross that night.	Catelyn	The Twins		
 298	12/26	Told he'll ride in the van. Meets Shae.	Tyrion 8 	Tyrion	AGOT	63	Word of Stark (Bolton) host moving south from the Twins, a day's march away. The next day, the Battle of the Green Fork.	Tyrion	Green Fork		
-298	12/27	Battle of the Green Fork	Tyrion 8 	Tyrion	AGOT	63		Tyrion	Green Fork		
+298	12/27	Battle of the Green Fork	Tyrion 8 	Tyrion	AGOT	63		Tyrion, Tywin	Green Fork		
 298	12/31	Lhazareen lamb city. Takes MMD as slave	Dany 7 	Daenerys	AGOT	62					
 299	January										
 299	1/1	Given Longclaw, Robb is marching	Jon 8 	Jon	AGOT	61	A couple days have passed. Bird came last night with news of Barristan's dismissal and Robb marching to war. Mormont sent Alliser south with the hand yesterday.				
 299	1/1	Whispering wood	Cat 10 	Catelyn	AGOT	64	Cat waits overnight as the battle takes place				
 299	1/2	News of Ned's death	Bran 7 	Bran	AGOT	67					
-299	1/2	Second Battle of Riverrun. Robb wins					Robb returns at dawn with Jaime as prisoner	Robb, Catelyn, Jaime	Riverrun		
+299	1/2	Second Battle of Riverrun. Robb wins					Robb returns at dawn with Jaime as prisoner	Robb, Catelyn, Jaime	Whispering Wood		
 299	1/3	Enters Riverrun. Robb crowned King in the North.	Cat 11 	Catelyn	AGOT	72	Have recently heard of Ned. They get news of Renly crowning himself. Since this is their first entry to Riverrun, it likely comes right on the heels of Cat 10	Robb, Catelyn	Riverrun		
 299	1/3	Battle of the Green Fork, Roose bloodied			AGOT						
 299	1/6	Jon tries to escape	Jon 9 	Jon	AGOT	71	Got news of Ned's death				
@@ -124,7 +128,7 @@
 299	3/17	Vassals talking, Cerwyn arrives with news of Stannis' Letter	Bran 2 	Bran	ACOK	17	Says he's almost 9. Manderly knows of Slynt being sent to Wall. Lady Hornwood visits. Days pass during the chapter				
 299	3/18	Ranging, reach Whitetree (4th village)	Jon 2 	Jon	ACOK	14	"The black brothers had left Castle Black in good spirits, joking and trading tales, but of late the brooding silence of the wood seemed to have sombered them all."	Jon, Sam	Whitetree		
 299	3/19	Dany reaches Vaes Tolorro. Next morning, sends out 3 riders	Dany 1	Daenerys	ACOK	13					
-299	3/20	Harvest feast / The Reeds arrive at Winterfell	Bran 3 	Bran	ACOK	22	The feast. All the people from Bran 2 still there.	Bran	Winterfell		
+299	3/20	Harvest feast / The Reeds arrive at Winterfell	Bran 3 	Bran	ACOK	22	The feast. All the people from Bran 2 still there.	Bran, Rickon	Winterfell		
 299	3/25	Arrives at Pyke	Theon 1 	Theon	ACOK	12	Comet. Had gone to Seagard, then Pyke. Complains that the ship has been too slow. " Robb had sent ravens from Riverrun, and when they’d found no longship at Seagard, Jason Mallister had sent his own birds to Pyke, supposing that Robb’s were lost." “By now Robb is at the Golden Tooth."	Theon	Pyke		
 299	4/1	Arya turns 10									
 299	4/3	Arrives Harrenhal. After 8 days in hut + march	Arya 6 	Arya	ACOK	27	 8 days captive at God's Eye. Then, a march to Harrenhal that takes days. Arrival.	Arya	Harrenhal		
@@ -149,7 +153,7 @@
 299	7/15	Renly dies. Fleeing with Brienne to RR	Cat 4 	Catelyn	ACOK	34		Renly	Storm's End		
 299	7/16	News of oxcross (happened 6 days before)	Sansa 3	Sansa	ACOK	33					
 299	7/19	News of Renly's death. After Sansa 3	Tyrion 8 	Tyrion	ACOK	37	LF will leave before dawn for Bitterbridge.				
-299	7/25	Tywin marching (to RR) news of oxcross. Weese dead	Arya 8 	Arya	ACOK	39	Tywin marching. Robb had won some great victory in the west.	Tywin	Casterly Rock		
+299	7/25	Tywin marching (to RR) news of oxcross. Weese dead	Arya 8 	Arya	ACOK	39	Tywin marching. Robb had won some great victory in the west.	Tywin	Oxcross		
 299	7/27	Qhorin arrives late. Jon joins him when he leaves	Jon 5 	Jon	ACOK	44	Qhorin's men had been expected "days ago," but they waited a few more days and they showed up. Jon will leave with Qhorin the next day.				
 299	7/30	News of oxcross. Rodrick comes back with Ramsay	Bran 5 	Bran	ACOK	36	News of Oxcross. Days pass. Rodrik returns with Reek as prisoner. Benfred Tallhart sent to Stony Shore				
 299	7/31	Robb turns 16									
@@ -165,10 +169,10 @@
 299	8/16	Weasel soup. Roose met mummers; Arya is 10	Arya 9 	Arya	ACOK	48	We know from Cat 6 that Roose was marching on Harrenhal a week before the Edmure/Tywin Red Fork battle.				
 299	8/17	Meets pureborns. Meets fire mage. Receives gifts	Dany 3 	Daenerys	ACOK	41	Had been receiving many offerings for some time. "Half a year gone," the firemage was powerless. Dragons twice as big as they were in Vaes Tolorro. On the morrow, Jorah will go to Pyat Pree.				
 299	8/19	Undyings	Dany 4 	Daenerys	ACOK	49					
-299	8/20	Battle of the Red Fork. Tywin's westerward movement is stopped, he turns east instead.						Tywin	Red Fork		
+299	8/20	Battle of the Fords. Tywin's westerward movement is stopped, he turns east instead.						Tywin	Red Fork		
 299	8/22	Kicked out of Qarth, meets Barristan	Dany 5 	Daenerys	ACOK	64	Some days have passed since Dany 4. Barristan has arrived. Must have been enough time for word to get from Qarth to Pentos before he set out there. "When we set sail from Pentos there were four kings in the land."  Means he left after Stannis' declaration but before Renly's death. Need to account for Barristan's travel time from Pentos in placing this chapter.				
 299	8/24	Jon turns 16									
-299	8/31	Theon takes Winterfell	Bran 6 	Bran	ACOK	47	Rodrik had left 8 days ago for Torrhen's Square. Theon takes Winterfell. 	Theon, Bran	Winterfell		
+299	8/31	Theon takes Winterfell	Bran 6 	Bran	ACOK	47	Rodrik had left 8 days ago for Torrhen's Square. Theon takes Winterfell. 	Theon, Bran, Rickon	Winterfell		
 											
 299	9/7	Shae with Lollys. Old letter from Doran warning of Storm's End's fall. Tommen taken.	Tyrion 11 	Tyrion	ACOK	50	News of Winterfell's fall. News that Bolton took Harrenhal. New letter from Balon Greyjoy				
 299	9/8	Theon fakes the deaths of Bran and Rickon	Theon 4 	Theon	ACOK	51	There had been time enough for Stygg to reach Deepwood Motte. They find the people Osha and wolves killed in escape.	Theon	Winterfell		
@@ -179,8 +183,8 @@
 											
 299	9/14	Asha comes and goes. Dream Robb entering hall of the dead	Theon 5 	Theon	ACOK	57	haunted by bad dreams for days. "Past time" that Asha arrived. She knows that Dagmer's lost at Torrhen's Square, Rodrik is gathering an army to retake Winterfell. Theon sends Reek to gather men.	Theon	Winterfell		
 299	9/15	News of Bran's death. No word from BitterBridge	Tyrion 12 	Tyrion	ACOK	55					
-299	9/16	Robb takes Crag. Hears of Bran and Rickon's deaths. Sleeps with Jeyne.						Robb	Crag		
-299	9/18	Battle of the Blackwater	Davos 3 	Davos	ACOK	59	Bad weather means "they had lost considerable time. Stannis would have reached the Rush days ago."	Davos, Tyrion, Stannis, Sansa, Joffrey	King's Landing		
+299	9/16	Robb takes Crag. Hears of Bran and Rickon's deaths. Sleeps with Jeyne.									
+299	9/18	Battle of the Blackwater	Davos 3 	Davos	ACOK	59	Bad weather means "they had lost considerable time. Stannis would have reached the Rush days ago."	Tyrion, Stannis, Sansa, Joffrey	King's Landing		
 299	9/18	Battle of the Blackwater	Tyrion 13 	Tyrion	ACOK	60					
 299	9/18	Battle of the Blackwater	Sansa 6 	Sansa	ACOK	61					
 299	9/18	Battle of the Blackwater	Tyrion 14 	Tyrion	ACOK	62					
@@ -200,9 +204,9 @@
 299	10/10	Moving north, separated from Shaggy Â« many hunts Â»	Bran 1 	Bran	ASOS	11	They've been staying at Tumbledown Tower in the Wolfswood for some time.	Bran	Wolfswood		
 299	10/13	Starving on a rock	Davos 1 	Davos	ASOS	6					
 299	10/15	Arrives in wildling camp on Milkwater	Jon 1 	Jon	ASOS	8	To the Milkwater. Traveling for over six days. 	Jon, Sam	Milkwater		
-299	10/16	Arrives on Dragonstone	 Davos 2 	Davos	ASOS	11		Davos	Dragonstone		
+299	10/16	Arrives on Dragonstone	 Davos 2 	Davos	ASOS	11					
 299	10/20	Margaery in KL	Sansa 1 	Sansa	ASOS	7	Marg arrived days ago. Sansa gets the dinner invite, then days more pass until the appointed day. Marriage plot.	Sansa	King's Landing		
-299	10/22	Inn of the Kneeling Man. Arrives in dead village, meets Anguy	Arya 2 	Arya	ASOS	15					
+299	10/22	Inn of the Kneeling Man. Arrives in dead village, meets Anguy	Arya 2 	Arya	ASOS	15	True identity discovered	Arya	Inn of the Kneeling Man		
 299	10/25	Travels with BwB, 3 days	Arya 3 	Arya	ASOS	19					
 299	10/27	Dreaming, healing	Tyrion 15	Tyrion	ACOK	68	Lots of time passed since the battle.				
 299	10/31	Yunkai yields	Dany 4 	Daenerys	ASOS	43					
@@ -244,7 +248,8 @@
 299	12/12	Fleeing Craster's, at a wildling village. Meet CH	Sam 3 	Samwell	ASOS	47		Sam	Craster's Keep		
 299	12/15	Sansa turns 13			ASOS						
 299	12/16	Queenscrown, escapes	Jon 5 	Jon	ASOS	42	Queenscrown. Several more nights have passed. Sync with Bran 3. Jon escapes, rides till dawn.	Jon	Queenscrown		
-299	12/16	Queenscrown. Synchro with Jon	Bran 3 	Bran	ASOS	41					
+299	12/16	Queenscrown. Synchro with Jon	Bran 3 	Bran	ASOS	41		Bran	Queenscrown		
+299	12/16	White Harbor			ASOS			Rickon	White Harbor		
 299	12/18	Meets Oberyn	Tyrion 5 	Tyrion	ASOS	39	Allot time for 300 Dornish to ride to KL from Sunspear				
 299	12/22	Green Fork, arrives at Twins	Cat 6 	Catelyn	ASOS	50	Arrival at the Twins, audience with Freys. Bolton has arrived too.	Catelyn, Robb	The Twins		
 299	12/23	Arrives at the Twins	Arya 10 	Arya	ASOS	51		Arya	The Twins		
@@ -273,7 +278,7 @@
 300	1/8										
 300	1/9	Oberyn visits, proposes to be champion	Tyrion 9 (66)	Tyrion	ASOS			Tyrion	King's Landing		
 300	1/10	Tyrion demands trial by combat after Shae testifies	Tyrion 10 (70)	Tyrion	ASOS	71		Tyrion	King's Landing		
-300	1/10	KL->Fingers, leaving for Eyrie	Sansa 6 	Sansa	ASOS	69	LF/Sansa arrive after journey to the Fingers. Lysa arrives 8 days later. They all leave for the Eyrie the next day.	LittleFinger, Sansa	King's Landing		
+300	1/10	KL->Fingers, leaving for Eyrie	Sansa 6 	Sansa	ASOS	69	LF/Sansa arrive after journey to the Fingers. Lysa arrives 8 days later. They all leave for the Eyrie the next day.	LittleFinger, Sansa	Eyrie		
 	1/11	Oberyn vs. the Mountain	Tyrion 10 (70)	Tyrion	ASOS						
 300	1/13	News of Oberyn's death in Sunspear	The Captain of the guards 	Areo Hotah	AFFC	3					
 300	1/15	Mance attacks	Jon 8 	Jon	ASOS	65	Mance arrives. Still no Bowen. Donal Noye's death. Two nights ago, finally word that Bowen Marsh is wounded at the Shadow tower.	Jon	Castle Black		
@@ -281,7 +286,7 @@
 300	1/20	Dragons chained	Dany 2	Daenerys	ADWD	12	More Harpy killings. Daario has been gone a long time. Dragons chained. There were three attempts to chain Drogon, leading to him flying away.				
 											
 300	1/22	Stays and leaves in village mountain of the moon	Arya 12 	Ayra	ASOS	66	Rode for many days, makes it to Mountains of Moon. Dreams of pulling Cat from the water. Stays in a village there for over a fortnight, then heads back to Riverlands.	Arya	Mountains of Moon		
-300	1/23	Only cat	Sansa 7 	Sansa	ASOS	81	Lysa is already dead in AFFC Cersei 2. After the Fingers, they went to the Eyrie, spending 1 night at the Gates of the Moon. When the chapter begins, LF has been gone from the Eyrie for 4 days.				
+300	1/23	Only cat	Sansa 7 	Sansa	ASOS	81	Lysa is already dead in AFFC Cersei 2. After the Fingers, they went to the Eyrie, spending 1 night at the Gates of the Moon. When the chapter begins, LF has been gone from the Eyrie for 4 days.	Sansa, LittleFinger	Eyrie		
 300	1/24	Escapes, kills Tywin	Tyrion 11 	Tyrion	ASOS	78	This is probably even later. Jaime says that Tyrion's beheading has been scheduled for tomorrow. Tyrion's voice has grown "hoarse from disuse." In Dorne there's at least a fortnight between news of Oberyn's death and news of Tywin's death.	Tyrion, Tywin	King's Landing		
 300	1/24	Night of Tywin's death	Cersei 1	Cersei	AFFC	4	Chapter goes through dawn	Cersei	King's Landing		
 300	1/24	Rosby, then two days to old stone bridge	Brienne 1 	Brienne	AFFC	5					
@@ -293,7 +298,7 @@
 300	1/29	 In jail four days. Stannis arrives	Jon 10	Jon	ASOS	74	Had spent "four days in the ice." Sent to kill Mance. Stannis arrives. Let's assume Mel's magic wind for Stannis's ships was really really good.	Jon, Stannis	Castle Black		
 300	1/29	Fortnight ago, merchant for KL killed (because of Oberyn's death)	Arys (Soiled Knight)	Arys	AFFC	14	Quentyn has departed from Planky Town				
 300	1/30	Crossroad Inn. Tickler. Leaving Hound. Riding to Saltpans. Getting aboard Titan's daughter	Arya 13 	Arya	ASOS	75	Hears of Joffrey's death for the first time	Arya	Crossroad Inn		
-300	1/30	Rape of saltpans					"Sandor Clegane was last seen in Saltpans, the day of the raid. Afterward he rode west, along the Trident.” In Saltpans he was asking for a ship (with Arya)				
+300	1/30	Rape of saltpans			ASOS		"Sandor Clegane was last seen in Saltpans, the day of the raid. Afterward he rode west, along the Trident.” In Saltpans he was asking for a ship (with Arya)	Arya	Saltpans		
 300	1/30	I am of the night. Myrcella wounded.	Arianne 1 (Queenmaker) 	Arianne	AFFC	22	Arianne first hears of Tywin's death	Myrcella	Sunspear		
 300	1/31	Merret is Hanged. Interrogated about Arya	Epilogue 		ASOS	82	Looking for the Hound.				
 300	2/1	Tyrion arrives in Pentos	Tyrion 1	Tyrion	ADWD	2		Tyrion	Pentos		
@@ -306,9 +311,9 @@
 300	2/10	10 days into the choosing. election LC	Sam 5 	Samwell	ASOS	79					
 300	2/10	Elected LC	Jon 12	Jon	ASOS	80	The next day? Couldn't sleep last night, thinking of Stannis's offer.	Sam	Castle Black		
 300	2/13	Varamyr's death	Prologue		ADWD	1	a couple weeks after battle				
-300	2/16	Nestor Royce visits the Eyrie	Sansa 1 	Sansa	AFFC	11	LF has written 100 letters since Lysa's fall.	Sansa, Lysa	Eyrie		
+300	2/16	Nestor Royce visits the Eyrie	Sansa 1 	Sansa	AFFC	11	LF has written 100 letters since Lysa's fall.				
 300	2/17	Dealing with Stannis	Jon 1	Jon	ADWD	4	Free folk drifting in most every night. Stannis has ridden all over the place, almost as far as Queenscrown once. Karhold already declared for Stannis. Davos hasn't left for White Harbor yet.	Stannis, Jon	Castle Black		
-300	2/18	Your monster, Brandon Stark	Bran 1	Bran	ADWD	5	Near Craster's. Food ran out 10 days ago. Runs into Varamyr's wolf.	Bran	Craster's Keep		
+300	2/18	Your monster, Brandon Stark	Bran 1	Bran	ADWD	5	Near Craster's. Food ran out 10 days ago. Runs into Varamyr's wolf.	Bran	Haunted Forest		
 300	2/20	Sent away from Castle Black with Aemon	Sam 1 	Samwell	AFFC	6	Tywin still thought alive	Sam	Castle Black		
 300	2/20	Sam's departure. 2 days later, Slynt executed.	Jon 2	Jon	ADWD	8	Still thinks Tywin alive. Davos has left for White Harbor. Sam/Gilly/Aemon leave that night. Kills Janos 2 days later.				
 300	2/20	Reek at the Dreadfort	Theon 1	Theon	ADWD	13	 Thinks he's been in dungeons half a year at least. Jeyne Poole has left KL	Theon	Dreadfort		
@@ -316,7 +321,7 @@
 300	2/24	Burning of Mance	Jon 3	Jon	ADWD	11	Only now, news of Tywin's death (from tales coming up the Kingsroad). Believable though -- no one's writing news bulletins to the Wall anymore, winterfell is empty 	Jon	Castle Black		
 300	2/27	Volantis, idea to join Windblown	Quentyn 1	Quentyn	ADWD	7	Departed Yronwood, Sunspear, Planky Town. Changes ships at Lys, stops there for at least 4 days bc Arch is sick. Then, off the coast of Disputed Lands, Quentyn's ship is attacked by corsairs. It eventually arrives at Volantis. When the chapter opens, Quentyn has been stuck in Volantis for 20 days.				
 300	2/27	Olenna and Mace gone. Kevan and Lancel leaving.	Jaime 2 	Jaime	AFFC	17	Lancel's bride has grown impatient, waiting for him and Kevan to go to Darry. Lollys baby born (so should be 8-9 months after KL riot, is currently nearly 7). Roose trapped below the Neck, Ramsay closing in on Moat Cailin. Recent news that Stannis turned up at the Wall. Redwyne fleet nearly at the city, preparing to go to Dragonstone.	Jaime	King's Landing		
-300	3/1	Sisterton	Davos 1	Davos	ADWD	10	Very bad storms on the way. Hears of Tywin's death, Lysa's death.				
+300	3/1	Sisterton	Davos 1	Davos	ADWD	10	Very bad storms on the way. Hears of Tywin's death, Lysa's death.	LittleFinger, Sansa, Lysa	Eyrie		
 											
 300	3/1	 Reaches Braavos	Arya 1	Arya	AFFC	7	Arya not yet 11	Arya	Braavos		
 300	3/1	Meets Griff's band at Ghoyan Drohe, boards Shy Maid	Tyrion 3	Tyrion	ADWD	9	Chapter starts when Tyrion is a day away from Ghoyan Drohe. Illyrio's train moves very slow.				
@@ -334,7 +339,7 @@
 300	3/22	HDAY1: Agrees that if Hizdahr can deliver 90 days without a Harpy killing, they'll marry on the following day	Dany 4	Daenerys	ADWD	24	More Harpy killings. Qartheen blockade. Word that Cleon of Astapor is dead. Yunkai and sellswords now outside walls of Astapor.				
 300	3/22	Hear about Doran punishing Arianne's accomplices. Sends man kill Bronn. Tommen is still 8, almost 9.	Cersei 5 	Cersei	AFFC	25	First three dromonds from Cersei 4 have been built. News that Davos is dead. News that Spotted Sylva has been suddenly betrothed to Lord Estermont. News about slave revolt in Meereen. Roose and Ramsay closing in on Moat Cailin. Tells Stokeworths to get rid of Bronn. Ignoring Iron Banker for a fortnight. Jaime still in the City.	Cersei	King's Landing		
 300	3/23	Leaves KL, eventually arrives in Harrenhal. Brienne, if it please smy lord. Brienne the beauty	Jaime 3 	Jaime	AFFC	28	Leaves the city. First night, camps by the Hayfords castle. At least 5 days pass, probably more. Eventually, arrival at Harrenhal. Frees Wylis Manderly ~3/30	Jaime	King's Landing	I tweaked some Theon and Davos dates to correctly put this chapter after Cersei V. Thank you for pointing it out. -Adam	
-300	3/23	 Lynn Corbray is a man of simple tastes	Sansa 2 (Alayne 1)	Sansa	AFFC	24					
+300	3/23	 Lynn Corbray is a man of simple tastes	Sansa 2 (Alayne 1)	Sansa	AFFC	24		Sansa, LittleFinger	Eyrie		
 300	3/25	Cracklaw Point. I'm too droll to die.	Brienne 4 	Brienne	AFFC	21					
 300	3/27	Learns greenseeing	Bran 3 (beginning)	Bran	ADWD	35	Some time passes, chapter spans nearly 2 months				
 											
@@ -371,7 +376,7 @@
 300	5/10	 "with a trebuchet"	Jaime 6	Jaime	AFFC	39	Ryman Frey dismissed  (will then be killed by Bhood before Brienne 8)				
 300	5/10	Aboard the Selaesori Qhoran	Tyrion 8	Tyrion	ADWD	34	2 days in Volantis, 7 days at sea when chapter opens. Talks to Penny, Moqorro, Jorah. Days pass. First storm, talks to Penny again. Days pass. At chapter's end, close to Valyria				
 300	5/11	News of Dragonstone's fall, Lancel is in KL.	Cersei 8 	Cersei	AFFC	37	At night, news Dragonstone has fallen (so Redwyne fleet will soon depart). Loras ordered the assault "not half a day after taking command." Ironborn raiding up the Mander, attacking the Arbor, possibly Oldtown.  The next day, Lancel is back in the city with the Warrior's Sons. The next day, speaks with Qyburn about prophecies. The next day, talks to Osmund about plot against Marg.	Cersei	King's Landing		
-300	5/14	 Leaving the Eyrie	Sansa 3 (Alayne 2)	Sansa	AFFC	42	Sansa is not yet 14. She claims to be, but notes that she has made Alayne Stone older than Sansa Stark. Myranda says Riverrun has yielded but Dragonstone still holds for Stannis (let's assume they haven't heard the news yet)	Sansa	Eyrie		
+300	5/14	 Leaving the Eyrie	Sansa 3 (Alayne 2)	Sansa	AFFC	42	Sansa is not yet 14. She claims to be, but notes that she has made Alayne Stone older than Sansa Stark. Myranda says Riverrun has yielded but Dragonstone still holds for Stannis (let's assume they haven't heard the news yet)				
 300	5/15	Rosby dead. Sends Osney to "confess"	Cersei 9 	Cersei	AFFC	40	At night, Torture of Blue Bard. Next day, tells Osney to confess to High Septon.	Cersei	King's Landing		
 300	5/17	Trial. Cat has Ryman's crown. "screamed a word"	Brienne 8 	Brienne	AFFC	43	Cat has just returned from Fairmarket (where she had Ryman Frey hanged)				
 300	5/17	Thrown in jail, sends letter to Jaime	Cersei 10 	Cersei	AFFC	44	Next day? Marg's arrest by the Faith announced. Day after that, Cersei visits Marg, locked up. Two days later, Qyburn appears. A raven has been sent to Casterly Rock asking Kevan to come back. Mace and Tarly on their way back to the city with their armies. Sends message to Riverrun.	Cersei	King's Landing		
@@ -381,7 +386,7 @@
 300	5/21	The Blind Girl	Arya 1	Arya	ADWD	46	Snowing in the Riverlands (sync with Jaime 7). Lysene slave ship from Hardhome captured.				
 300	5/21	Sam arrives in Oldtown	Sam 5	Samwell	AFFC	46	""Without Lord Redwyne’s fleet, we lack the ships to come to grips with them… the best we can do is guard the sound and wait for the bitch queen in King’s Landing to let Lord Paxter off his leash.” This reveals that Oldtown does not yet know about the fall of Dragonstone and the fall of Cersei. Also in this chapter, Marwyn leaves Oldtown	Sam	Oldtown		
 300	5/22	Visits refugee camp. Daario returns. Sex with Daario.	Dany 6	Daenerys	ADWD	37					
-300	5/23	Jaime/Brienne reunion and Jaime's disappearance	Jaime 1	Jaime	ADWD	49					
+300	5/23	Jaime/Brienne reunion and Jaime's disappearance	Jaime 1	Jaime	ADWD	49	At Pennytree, going to find Sansa from the Hound	Jaime	Red Fork		
 300	5/28	Gregor's head brought to Dorne	Areo 1	Areo	ADWD	39	Balon at Sunspear. His trip has taken months. Ironborn have taken the Shields and are raiding into the Mander. GC's ships have reached Lys. 				
 300	5/30	Sends Val to get Tormund, talks to Bowen & co.	Jon 8	Jon	ADWD	40	Moon is half full, Val says she'll be back by next full moon (21 days? But there's no mention if she made the deadline. Doesn't make sense considering Iron Banker/Winterfell travel time so let's assume she comes back late). Hopes Sam is in Oldtown by now. Word of the situation at Hardhome.				
 300	6/1	Adrift on the Selaesori Qhoran, captured by slavers	Tyrion 9	Tyrion	ADWD	41	Have been stuck in Gulf of Grief at least 12 days. Chapter opens, joust, storm, kisses Penny, Moqorro gone, mast destroyed. They drift for 26 days until captured by a slaver.				

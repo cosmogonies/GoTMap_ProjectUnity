@@ -51,12 +51,12 @@ public class GUI_Main : MonoBehaviour
 		
 	
 		
-		
+		/*
 		if ( GUI.Button( new Rect(Screen.width-100,0.0f,100.0f,25.0f), "Menu") )
 		{
 			Application.Quit();
 		}
-	
+		*/
 	}
 	
 

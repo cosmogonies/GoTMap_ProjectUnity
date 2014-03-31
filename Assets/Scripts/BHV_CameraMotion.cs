@@ -264,10 +264,12 @@ public class BHV_CameraMotion : MonoBehaviour
 		}
 		
 		
-		GUI.Label( new Rect(Screen.width-100,25.0f,50.0f,25.0f), "Following=");
+		GUI.Label( new Rect(Screen.width-100,25.0f,50.0f,25.0f), "Follow:");
 		string DisplayName="";
 		if(this.Following != null)
 			DisplayName = this.Following.name;
+		else
+			DisplayName = "-";
 		if ( GUI.Button( new Rect(Screen.width-50,25.0f,50.0f,25.0f), DisplayName ) )
 		{
 			this.Following = null;

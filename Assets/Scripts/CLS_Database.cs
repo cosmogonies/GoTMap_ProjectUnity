@@ -8,12 +8,8 @@ public class Evvent
 {
 	public float HappeningTime=0.0f;
 
-	//public int Day;
-	//public int Month;
-	//public int Year;
 	public System.DateTime Date;
 
-	//public int BookIndex;	//Tome NUmber
 	public Tome Book =null;
 
 	public string Name="Default";
@@ -38,14 +34,6 @@ public class Tome
 	public string Name;
 	public int Order;
 
-	//public int Start_Day;
-	//public int Start_Month;
-	//public int Start_Year;
-
-	//public int End_Day;
-	//public int End_Month;
-	//public int End_Year;
-
 	public System.DateTime Start;
 	public System.DateTime End;
 
@@ -56,7 +44,6 @@ public class Tome
 		this.Order = _Order;
 	}
 
-	//float getRatio(int _Year, int _Month, int _Day)
 	public float getRatio(System.DateTime _TheDate)
 	{
 		System.TimeSpan delta = _TheDate - this.Start;
@@ -71,6 +58,8 @@ public sealed class CLS_Database
 	//public List<Tome> TomeList;
 	public Dictionary<string,Tome> TomeDict;
 
+	public Dictionary<DateTime, string> DeathSentences;
+
     private static readonly CLS_Database instance = new CLS_Database();
 
     // Explicit static constructor to tell C# compiler
@@ -82,6 +71,7 @@ public sealed class CLS_Database
     private CLS_Database()
     {
 		TomeDict = new Dictionary<string,Tome>();
+		DeathSentences = new Dictionary<DateTime, string>();
 
 		Tome FULL = new Tome("A SONG OF ICE AND FIRE","ASOIAF",0);
 
@@ -112,8 +102,14 @@ public sealed class CLS_Database
 		TomeDict["AFFC"] = affc;
 		TomeDict["ADWD"] = adwd;
 
-
-
+		DeathSentences[new DateTime(298,11,15) ] = "Robert";
+		DeathSentences[new DateTime(298,12,23) ] = "Ned";
+		DeathSentences[new DateTime(299,7,15) ] = "Renly";
+		DeathSentences[new DateTime(299,12,23) ] = "Catelyn";
+		DeathSentences[new DateTime(299,12,23) ] = "Robb";
+		DeathSentences[new DateTime(300,1,1) ] = "Joffrey";
+		DeathSentences[new DateTime(300,1,24) ] = "Tywin";
+		DeathSentences[new DateTime(300,1,23) ] = "Lysa"; //This one NEEDS CONFIRMATION
 
 
 		//ReadDatabase();
@@ -126,46 +122,17 @@ public sealed class CLS_Database
             return instance;
         }
     }
-	
-//	static string getTomeTile(int Index)
-//	{
-//		return CLS_Database.instance.TomeList[Index].Name;
-//	}
 
-//	static int getTomeIndex(string BookCode)
-//	{
-//		switch (BookCode) 
-//		{
-//				default: return null;break;
-//				case "AGOT": return 0;
-//				case "ACOK": return 1;
-//				case "ASOS": return 2;
-//				case "AFFC": return 3;
-//				case "ADWD": return 4;
-//		}
-//	}
-
-	/*
-	static void ReadDatabase()
+	//public string[] getDeath(DateTime _Date)
+	public bool amIDead(DateTime _Date,string _CharacterName)
 	{
-		FileInfo theSourceFile = null;
-		StringReader reader = null; 
-		 
-		TextAsset puzdata = (TextAsset)Resources.Load("Database_Tome1", typeof(TextAsset));
-		Debug.Log (puzdata.text);
-		reader = new StringReader(puzdata.text);
-		if ( reader == null )
+		foreach (KeyValuePair<DateTime, string> kvp in this.DeathSentences) 
 		{
-		   Debug.LogError("Database_Tome1.txt not found or not readable");
+			if(kvp.Value==_CharacterName)
+				if( kvp.Key < _Date )
+					return true;
 		}
-		else
-		{
-			string txt;
-			while(        (txt = reader.ReadLine() ) != null )
-			{
-				Debug.Log("-->" + txt);
-			}
-		}
+		return false;
 	}
-	*/
+
 }

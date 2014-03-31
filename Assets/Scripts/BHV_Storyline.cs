@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 public class BHV_Storyline : MonoBehaviour 
 {	//Management of interaction involving the story.
 	public Tome SelectedTome = null ; //if not a Tome, it is a FullTimeLine
+	System.DateTime currentDate;
 
 	public GameObject Pawn_Male;
 	public GameObject Pawn_Female;
@@ -20,7 +22,7 @@ public class BHV_Storyline : MonoBehaviour
 	public Font MyFont;
 
 	public TextAsset DatabaseDumpFile;
-	
+
 	void Start () 
 	{
 		this.TheDatabase = CLS_Database.Instance;
@@ -129,10 +131,11 @@ public class BHV_Storyline : MonoBehaviour
 		foreach( KeyValuePair<string, List<Evvent>> kvp in this.CharacterMotion)
 		{
 			Debug.Log ("CharacterName="+kvp.Key);
-			Tome currentBook=null;
-			LoggedBuffer+="\nCharacterName="+kvp.Key;
+			//Tome currentBook=null;
+			LoggedBuffer+="\nCharacter: "+kvp.Key;
 			foreach( Evvent ev in kvp.Value)
 			{
+				/*
 				if(ev.Book!=null)
 				{
 					if(ev.Book!=currentBook)
@@ -141,10 +144,12 @@ public class BHV_Storyline : MonoBehaviour
 						LoggedBuffer+="\n\t"+ ev.Book.CodeName;
 					}
 				}
-
+				*/
 				int percent = Mathf.RoundToInt(ev.HappeningTime*100f);
-				Debug.Log ("\t     "+ percent+"% => "+ ev.Location.name+" ("+ev.Name+")");
-				LoggedBuffer+="\n\t"+ percent+"% => "+ ev.Location.name+" ("+ev.Name+")";
+				//Debug.Log ("\t     "+ percent+"% => "+ ev.Location.name+" ("+ev.Name+")");
+
+
+				LoggedBuffer+="\n\t"+ev.Date.ToString("d/MM/yyy")+" ("+ percent+"%) => "+ ev.Location.name+" ("+ev.Name+")";
 			}
 		}
 		Debug.LogWarning(LoggedBuffer);
@@ -183,6 +188,18 @@ public class BHV_Storyline : MonoBehaviour
 	void Update () 
 	{
 		GUI_Main comp = this.GetComponent<GUI_Main>() as GUI_Main;
+
+		int DayNumbers = (this.SelectedTome.End-this.SelectedTome.Start).Days;
+
+		this.currentDate = this.SelectedTome.Start + new TimeSpan(Mathf.RoundToInt(comp.ScrollValue*(DayNumbers)),0,0,0);
+
+		//Debug.Log ( this.currentDate.ToString("d/MM/yyy") );
+
+
+
+
+
+
 		updateCharacters(comp.ScrollValue);
 	}
 
@@ -401,6 +418,13 @@ public class BHV_Storyline : MonoBehaviour
 	void refreshCharacterButton(GameObject _Character)
 	{
 	
+		//Am I Dead ?
+		if (this.TheDatabase.amIDead(this.currentDate, _Character.name))
+		{
+			return;
+		}
+
+
 		//Vector3 offset = new Vector3(1.0f,3.0f,0.0f); 
 		Vector3 targetScreenPosition = Camera.main.WorldToScreenPoint(_Character.transform.position);
 			
@@ -447,6 +471,14 @@ public class BHV_Storyline : MonoBehaviour
 		{
 			refreshCharacterButton(kvp.Value);
 		}
+
+
+		//if ( GUI.Button( new Rect(Screen.width-100,0.0f,100.0f,25.0f), "Menu") )
+		if ( GUI.Button( new Rect(Screen.width-100,0.0f,100.0f,25.0f), this.currentDate.ToString("dd/MM/yyy")))	//TO Do
+		{
+			//Call the Zoom Window, this Event Description
+		}
+
 		
 		
 	}
