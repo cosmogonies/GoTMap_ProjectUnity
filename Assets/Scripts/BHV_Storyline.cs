@@ -249,32 +249,30 @@ public class BHV_Storyline : MonoBehaviour
 	void updateCharacters(float _CurrentTimeValue)
 	{
 		foreach( KeyValuePair<string, List<Evvent>> kvp in this.CharacterMotion)
-		{
+		{	//Parsing Characters
 			string CharName = kvp.Key;
 			
 			Dictionary<float,Vector3> WayPoints = new Dictionary<float, Vector3>();
-			foreach( Evvent ev in kvp.Value)
-			{
-				//Offset Generation (avoid character stacking by spherical)
-				//Vector3 offset = getCharacterOffset(CharName);
-				//int i=0;
-				int idx = ev.Characters.IndexOf( this.CharacterDict[CharName] );
-				float ratio = (float)idx / ev.Characters.Count;
-				//ratio = 360.0*ratio;
+			foreach( Evvent currentEvent in kvp.Value)
+			{	//Parsing Character's Events
+
+				//Offset Generation (avoid character stacking by spherical positionning)
+				int idx = currentEvent.Characters.IndexOf( this.CharacterDict[CharName] );
+				float ratio = (float)idx / currentEvent.Characters.Count;
 				ratio = Mathf.PI*2*ratio;
-				float Radius=200.0f;
+				float Radius=200.0f; //TODO: change RAdius into place occupied in pixels from screen ratio.
 				Vector3 offset = new Vector3( Mathf.Cos(ratio)*Radius, 0.0f, Mathf.Sin(ratio)*Radius );
 
-				WayPoints[ev.HappeningTime] = ev.Location.transform.position +offset;
-
+				//Getting a PointBased-MotionPath :
+				WayPoints[currentEvent.HappeningTime] = currentEvent.Location.transform.position +offset;
 			}
+
 			float min = getMinInDict(WayPoints);
 			WayPoints[0.0f] = WayPoints[min];
 			
 			float max = getMaxInDict(WayPoints);
 			WayPoints[1.0f] = WayPoints[max];
-			
-			
+
 			Vector3 pos = GetPosition(_CurrentTimeValue, WayPoints);
 			this.CharacterDict[kvp.Key].transform.position = pos;
 		}
@@ -474,7 +472,7 @@ public class BHV_Storyline : MonoBehaviour
 
 
 		//if ( GUI.Button( new Rect(Screen.width-100,0.0f,100.0f,25.0f), "Menu") )
-		if ( GUI.Button( new Rect(Screen.width-100,0.0f,100.0f,25.0f), this.currentDate.ToString("dd/MM/yyy")))	//TO Do
+		if ( GUI.Button( new Rect(Screen.width-100,Screen.height-Screen.height*0.05f,100.0f,Screen.height*0.05f), this.currentDate.ToString("dd/MM/yyy")))	//TO Do
 		{
 			//Call the Zoom Window, this Event Description
 		}

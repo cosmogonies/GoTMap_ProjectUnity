@@ -26,11 +26,11 @@ public class GUI_Main : MonoBehaviour
 		GUI.skin = 	theGUISkin;
 		GUI.skin.label.fontSize = 20;
 		string SelectedTomeName = "T"+this.GetComponent<BHV_Storyline>().SelectedTome.Order +": "+ this.GetComponent<BHV_Storyline>().SelectedTome.Name;
-		GUI.Label(new Rect(0.0f,0.0f,Screen.width-100.0f,TITLE_HEIGHT) , "    "+SelectedTomeName);
+		GUI.Label(new Rect(0.0f,Screen.height-TITLE_HEIGHT,Screen.width-100.0f,TITLE_HEIGHT) , "    "+SelectedTomeName);
 
 
 		//float PreviousScrollValue = ScrollValue;
-		ScrollValue = GUI.HorizontalSlider(new Rect(0.0f,0.0f,Screen.width-100.0f,TITLE_HEIGHT) , ScrollValue, 0.0f,1.0f);
+		ScrollValue = GUI.HorizontalSlider(new Rect(0.0f,Screen.height-TITLE_HEIGHT,Screen.width-100.0f,TITLE_HEIGHT) , ScrollValue, 0.0f,1.0f);
 		//ScrollValue = GUI.HorizontalSlider(new Rect(0.0f,20.0f,Screen.width-100.0f,50.0f) , ScrollValue, 0.0f,1.0f,SliderSkin,SliderThumb);
 		
 		/*	Test to callback/event manage of GUI system.
