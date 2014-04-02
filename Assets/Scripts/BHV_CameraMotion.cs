@@ -3,8 +3,9 @@ using System.Collections;
 
 public class BHV_CameraMotion : MonoBehaviour 
 {
-	
-	public float Speed;
+
+	public float MoveSpeed;
+	public float DollySpeed;
 
 	public Camera selectedCamera; 
 	
@@ -34,10 +35,6 @@ public class BHV_CameraMotion : MonoBehaviour
 	float currentFingerDistance = 0.0f;
 	float previousFingerDistance = 0.0f;
 	float zoomFactor = 0.0f;
-
-	
-	private const float TITLE_HEIGHT=50.0f; // TO_CLEAN: this hardcoded value is stored also in GUI_Main.cs
-	
 	
 	private Vector3 MapLocationAimed;
 
@@ -152,7 +149,7 @@ public class BHV_CameraMotion : MonoBehaviour
 		if(Input.touchCount>0)
 		{
 			//if(Input.GetTouch(0).position.y< Screen.height-TITLE_HEIGHT) //do not activate when
-			if(Input.GetTouch(0).position.y>TITLE_HEIGHT) //do not activate when
+			if(Input.GetTouch(0).position.y > Screen.height*0.15f  ) //must be a little more than the value as GUI_Main.TITLE_HEIGHT
 			{
 				if(Input.touchCount==1)
 				{
@@ -288,17 +285,18 @@ public class BHV_CameraMotion : MonoBehaviour
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, ScaleValue, Camera.main.transform.position.z);
 		}
 		*/
-		
-		GUI.Label( new Rect(Screen.width-100,Screen.height-Screen.height*0.1f,50.0f,Screen.height*0.05f), "Follow:");
+
+		#region FOLLOWING_GUI_LOGIC
 		string DisplayName="";
 		if(this.Following != null)
 			DisplayName = this.Following.name;
 		else
 			DisplayName = "-";
-		if ( GUI.Button( new Rect(Screen.width-50,Screen.height-Screen.height*0.1f,50.0f,Screen.height*0.05f), DisplayName ) )
+		if ( GUI.Button( new Rect(Screen.width*0.9f,Screen.height-Screen.height*0.1f,Screen.width*0.1f,Screen.height*0.05f), DisplayName ) )
 		{
 			this.Following = null;
 		}
+		#endregion
 	}
 	
 	void Move(float _OffsetX=0.0f, float _OffsetY=0.0f)
@@ -308,7 +306,7 @@ public class BHV_CameraMotion : MonoBehaviour
 		//this.transform.Translate(_OffsetX*Time.deltaTime,_OffsetY*Time.deltaTime,0.0f, Space.Self);
 		//this.transform.Translate(_OffsetX*Time.deltaTime,_OffsetY*Time.deltaTime,0.0f, Space.World);
 
-		Vector3 realMovement = new Vector3(_OffsetX*Speed* Time.deltaTime,0.0f,_OffsetY*Speed* Time.deltaTime);
+		Vector3 realMovement = new Vector3(_OffsetX*MoveSpeed* Time.deltaTime,0.0f,_OffsetY*MoveSpeed* Time.deltaTime);
 
 		Vector3 newPosition = this.transform.position + realMovement;
 
@@ -341,7 +339,7 @@ public class BHV_CameraMotion : MonoBehaviour
 		//this.transform.Translate(0.0f,0.0f,_Offset*Speed, Space.Self);		
 		//apply zoom to our camera
 		//Camera.mainCamera.transform.Translate(Vector3.forward * _Offset * Speed * Time.deltaTime);
-		Vector3 vOffset = new Vector3(0f, _Offset*Speed*Time.deltaTime,0f);
+		Vector3 vOffset = new Vector3(0f, _Offset*DollySpeed*Time.deltaTime,0f);
 
 		Vector3 newPosition = Camera.mainCamera.transform.position + vOffset;
 
@@ -377,7 +375,7 @@ public class BHV_CameraMotion : MonoBehaviour
 		//zoomFactor = Mathf.Clamp(this.previousFingerDistance - this.currentFingerDistance, -30.0f, 30.0f);
 		
 		//apply zoom to our camera
-		Vector3 vOffset = new Vector3(0f, (this.previousFingerDistance - this.currentFingerDistance)*Speed*Time.deltaTime,0f);
+		Vector3 vOffset = new Vector3(0f, (this.previousFingerDistance - this.currentFingerDistance)*DollySpeed*Time.deltaTime,0f);
 		
 		Vector3 newPosition = Camera.mainCamera.transform.position + vOffset;
 		

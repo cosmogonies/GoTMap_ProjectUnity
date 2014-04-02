@@ -19,7 +19,7 @@ public class BHV_Storyline : MonoBehaviour
 	private Dictionary<string,List<Evvent>> CharacterMotion; // CharName => <event1,event2>
 	private Dictionary<GameObject,LineRenderer> CharacterPath; // CharName => LineRenderer
 
-	public Font MyFont;
+	//public Font MyFont;
 
 	public TextAsset DatabaseDumpFile;
 
@@ -426,7 +426,7 @@ public class BHV_Storyline : MonoBehaviour
 		//Vector3 offset = new Vector3(1.0f,3.0f,0.0f); 
 		Vector3 targetScreenPosition = Camera.main.WorldToScreenPoint(_Character.transform.position);
 			
-/*				
+		/*
 		float LetterWidth = 16.0f;
 		if(Screen.width<500)
 			LetterWidth = 8.0f;
@@ -465,19 +465,20 @@ public class BHV_Storyline : MonoBehaviour
 	
 	void OnGUI()
 	{
+		//We refresh all GUIButtons of each characters :
 		foreach(KeyValuePair<string,GameObject> kvp in this.CharacterDict)
 		{
 			refreshCharacterButton(kvp.Value);
 		}
 
+		//Background of Timeslider:
+		string SelectedTomeName = "T"+this.GetComponent<BHV_Storyline>().SelectedTome.Order +": "+ this.GetComponent<BHV_Storyline>().SelectedTome.Name;
+		GUI.Label(new Rect(Screen.width*0.1f*0.5f,Screen.height*0.9f,Screen.width*0.9f,Screen.height*0.1f) , "    "+this.SelectedTome.Name);
 
-		//if ( GUI.Button( new Rect(Screen.width-100,0.0f,100.0f,25.0f), "Menu") )
-		if ( GUI.Button( new Rect(Screen.width-100,Screen.height-Screen.height*0.05f,100.0f,Screen.height*0.05f), this.currentDate.ToString("dd/MM/yyy")))	//TO Do
+		if ( GUI.Button( new Rect(Screen.width*0.9f,Screen.height-Screen.height*0.05f,Screen.width*0.1f,Screen.height*0.05f), this.currentDate.ToString("dd/MM/yyy")))	//TO Do
 		{
 			//Call the Zoom Window, this Event Description
 		}
 
-		
-		
 	}
 }
