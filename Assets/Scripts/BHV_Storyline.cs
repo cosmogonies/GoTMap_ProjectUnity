@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class BHV_Storyline : MonoBehaviour 
 {	//Management of interaction involving the story.
 	public Tome SelectedTome = null ; //if not a Tome, it is a FullTimeLine
-	System.DateTime currentDate;
+	public System.DateTime currentDate;
 
 	public GameObject Pawn_Male;
 	public GameObject Pawn_Female;
@@ -15,9 +15,9 @@ public class BHV_Storyline : MonoBehaviour
 	CLS_Database TheDatabase;
 	private List<Evvent> StoryLine;
 	
-	private Dictionary<string,GameObject> CharacterDict;
-	private Dictionary<string,List<Evvent>> CharacterMotion; // CharName => <event1,event2>
-	private Dictionary<GameObject,LineRenderer> CharacterPath; // CharName => LineRenderer
+	public Dictionary<string,GameObject> CharacterDict;
+	public Dictionary<string,List<Evvent>> CharacterMotion; // CharName => <event1,event2>
+	public Dictionary<GameObject,LineRenderer> CharacterPath; // CharName => LineRenderer
 
 	//public Font MyFont;
 
@@ -31,6 +31,7 @@ public class BHV_Storyline : MonoBehaviour
 		this.CharacterMotion = new Dictionary<string, List<Evvent>>();
 		this.CharacterPath = new Dictionary<GameObject, LineRenderer>();
 
+		this.StoryLine = new List<Evvent>();
 
 		//Deactivate Kernel MainMenu (and read player options)
 		GameObject Kernel = GameObject.FindGameObjectWithTag("Core");
@@ -111,6 +112,10 @@ public class BHV_Storyline : MonoBehaviour
 
 					//Now we have to set the HappeningTime:
 					newEvent.HappeningTime = this.SelectedTome.getRatio(newEvent.Date);
+
+					newEvent.Info = Citation;
+
+					StoryLine.Add(newEvent);
 				}
 				
 				//Now we have to add a starting point for every characters:
@@ -170,7 +175,8 @@ public class BHV_Storyline : MonoBehaviour
 				TheLineRendererComp.SetWidth(LineWidth,LineWidth);
 				
 				//TheLineRendererComp.material = new Material (Shader.Find("Diffuse"));
-				TheLineRendererComp.material = new Material (Shader.Find("Mobile/Unlit (Supports Lightmap)"));
+				//TheLineRendererComp.material = new Material (Shader.Find("Mobile/Unlit (Supports Lightmap)"));
+				TheLineRendererComp.material = new Material (Shader.Find("Custom/MobileTransparent"));
 				TheLineRendererComp.material.color = getCharacterColor(kvp.Key);
 				Line.SetActive(false);
 				
@@ -189,19 +195,26 @@ public class BHV_Storyline : MonoBehaviour
 	{
 		GUI_Main comp = this.GetComponent<GUI_Main>() as GUI_Main;
 
-		int DayNumbers = (this.SelectedTome.End-this.SelectedTome.Start).Days;
-
-		this.currentDate = this.SelectedTome.Start + new TimeSpan(Mathf.RoundToInt(comp.ScrollValue*(DayNumbers)),0,0,0);
-
-		//Debug.Log ( this.currentDate.ToString("d/MM/yyy") );
-
-
-
-
+		this.currentDate = convertRatioToDate(comp.ScrollValue);
 
 
 		updateCharacters(comp.ScrollValue);
 	}
+
+
+	System.DateTime convertRatioToDate(float _Ratio)
+	{
+		int DayNumbers = (this.SelectedTome.End-this.SelectedTome.Start).Days;
+		return this.SelectedTome.Start + new TimeSpan(Mathf.RoundToInt(_Ratio*(DayNumbers)),0,0,0);	//TODO: too random, must round to AN EXISTING CLOSE EVENT...
+	}
+	float convertDateToRatio(System.DateTime _Date)
+	{
+		int DateNumbers = (_Date - this.SelectedTome.Start).Days;
+		int TotalNumbers = (this.SelectedTome.End-this.SelectedTome.Start).Days;
+		return ( DateNumbers / (float)TotalNumbers );
+	}
+
+
 
 
 	void createCharacterPawn(string _CharacterName)
@@ -413,7 +426,7 @@ public class BHV_Storyline : MonoBehaviour
 	}
 	
 	
-	void refreshCharacterButton(GameObject _Character)
+	public void refreshCharacterButton(GameObject _Character)
 	{
 	
 		//Am I Dead ?
@@ -445,24 +458,112 @@ public class BHV_Storyline : MonoBehaviour
 		if(GUI.Button( new Rect(targetScreenPosition.x,Screen.height-targetScreenPosition.y,neededWidth,25.0f) , current))
 		{
 			//Declaring if following :
+			/*
 			if(this.CharacterPath[_Character].gameObject.activeSelf)
 				Camera.main.GetComponent<BHV_CameraMotion>().Following = null;
 			else
 				Camera.main.GetComponent<BHV_CameraMotion>().Following = _Character;
-			
-			toggleCharacterSelection(_Character);
-			
+
+			//toggleCharacterSelection(_Character);
+			this.CharacterPath[_Character].gameObject.SetActive( ! this.CharacterPath[_Character].gameObject.activeSelf );
+			*/
+
+			toggleCharacterFocus(_Character);
 		}
-		
 	}
+
+
+
+
 	
-	void toggleCharacterSelection(GameObject _Character)
+	public void toggleCharacterFocus(GameObject _Character)
 	{
-		this.CharacterPath[_Character].gameObject.SetActive( ! this.CharacterPath[_Character].gameObject.activeSelf );
-		//this.CharacterComponents[_Character].SetActive( ! this.CharacterComponents[_Character].activeSelf );
-		
+		bool currentStatus = this.CharacterPath[_Character].gameObject.activeSelf;
+		foreach(GameObject currentCharGO in  this.CharacterDict.Values )
+		{
+			if(currentCharGO==_Character)
+				this.CharacterPath[_Character].gameObject.SetActive( ! currentStatus);	//toggling currentOne.
+			else
+				this.CharacterPath[currentCharGO].gameObject.SetActive(false);
+		}
+
+		BHV_CameraMotion CameraMotionComp = Camera.main.GetComponent<BHV_CameraMotion>();
+		if(CameraMotionComp.Following == null)
+			CameraMotionComp.Following = _Character;
+		else
+			CameraMotionComp.Following = null;
 	}
-	
+
+	public Evvent getCurrentEvent()
+	{
+		Evvent ClosestEvent = StoryLine[0];
+		float DeltaSmallest=1.0f;
+		float currentDateAsRatio = this.convertDateToRatio(this.currentDate);	//FIXME: could directly acess to GUIMAIn.ScrollValue...
+		foreach(Evvent currentEvent in StoryLine  )
+		{
+			float currentRatio = this.convertDateToRatio(currentEvent.Date);
+
+			if( Mathf.Abs(currentDateAsRatio-currentRatio)< DeltaSmallest )
+			{
+				DeltaSmallest = Mathf.Abs(currentDateAsRatio-currentRatio);
+				ClosestEvent = currentEvent;
+			}
+
+		}
+		return ClosestEvent;
+	}
+	public float getPreviousEvent()
+	{
+		Evvent PreviousEvent = StoryLine[0];
+		float DeltaSmallest=1.0f;
+		float currentDateAsRatio = this.convertDateToRatio(this.currentDate);	//FIXME: could directly acess to GUIMAIn.ScrollValue...
+		foreach(Evvent currentEvent in StoryLine  )
+		{
+			float currentRatio = this.convertDateToRatio(currentEvent.Date);
+			if( currentDateAsRatio-currentRatio>0 )	//currentEvent is a previous one.
+			{
+				if( currentDateAsRatio-currentRatio< DeltaSmallest )
+				{
+					DeltaSmallest = currentDateAsRatio-currentRatio;
+					PreviousEvent = currentEvent;
+				}
+			}
+		}
+		return convertDateToRatio(PreviousEvent.Date);
+	}
+	public float getNextEvent()
+	{
+		Evvent NextEvent = StoryLine[0];
+		float DeltaSmallest=1.0f;
+		float currentDateAsRatio = this.convertDateToRatio(this.currentDate);	//FIXME: could directly acess to GUIMAIn.ScrollValue...
+		foreach(Evvent currentEvent in StoryLine  )
+		{
+			float currentRatio = this.convertDateToRatio(currentEvent.Date);
+			if( currentRatio - currentDateAsRatio>0 )	//currentEvent is a next one.
+			{
+				if( currentRatio-currentDateAsRatio< DeltaSmallest )
+				{
+					DeltaSmallest = currentRatio-currentDateAsRatio;
+					NextEvent = currentEvent;
+				}
+			}
+		}
+		return convertDateToRatio(NextEvent.Date);
+	}
+
+
+	public string getCurrentEventName()
+	{
+		foreach(Evvent currentEvent in this.StoryLine  )
+		{
+			if( this.currentDate == currentEvent.Date)	//Maybe we can add here a almost equal threshold.... (avoid float aproximation)
+				return currentEvent.Name;
+		}
+		string SelectedTomeName = "T"+this.SelectedTome.Order +": "+ this.SelectedTome.Name;
+		return SelectedTomeName;
+	}
+
+	/*
 	void OnGUI()
 	{
 		//We refresh all GUIButtons of each characters :
@@ -481,4 +582,5 @@ public class BHV_Storyline : MonoBehaviour
 		}
 
 	}
+	*/
 }

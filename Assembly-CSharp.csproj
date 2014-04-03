@@ -123,6 +123,7 @@
      <None Include="Assets\Plugins\___Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\BlendModesOverlay.shader" />
      <None Include="Assets\Resources\ASOIAF Timeline - From PrivateMajor - Timeline.txt" />
      <None Include="Assets\Plugins\___Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\SimpleClear.shader" />
+     <None Include="Assets\Fx\MobileTransparent.shader" />
      <None Include="Assets\Plugins\___Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\FXAA3Console.shader" />
      <None Include="Assets\Plugins\___Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\EdgeDetectX.shader" />
      <None Include="Assets\Plugins\___Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\FXAAPreset2.shader" />

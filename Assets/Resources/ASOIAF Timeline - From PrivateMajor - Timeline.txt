@@ -7,21 +7,21 @@
 298											
 298	2/10	Joffrey's name day					Tourney where Littlefinger bets the dagger on Jaime				
 298	2/24				AGOT			Renly	RenlyInit		
-298	2/24				AGOT			Robert, Jaime	King's Landing		
+298	2/24				AGOT			Robert, Jaime, Tyrion	King's Landing		
 298	2/24	Jon Arryn Dies					Ned 1- A fortnight after Joff's nameday tourney, Jon Arryn was dead. Cersei and the royal children were not in the city, they are on their way to visit Casterly Rock (Ned 5).	Cersei, Tommen, Joffrey, Myrcella, Tywin	Casterly Rock		
 298	3/22	Gared caught, direwolves found	Bran 1 	Bran	AGOT	2					
 298	3/22	Message from KL. Jon Arryn dead, Robert is on his way to Winterfell.	Cat 1 	Catelyn	AGOT	3	Mentioned that Tommen is 7	Catelyn, Ned, Robb, Sansa, Bran, Theon, Rickon, Arya	Winterfell		
 298	4/1	Arya turns 9									
 298	4/10	Viserys humiliated, Dany becomes pregnant	Dany 3	Daenerys	AGOT	24	Khalasar leaves the day after Dany's wedding. Many days pass -- through Norvos, fording rivers, riding through Forest of Qohor for "half a moon", and into the Dothraki Sea.				
-298	5/20	Robert arrives in Winterfell	Ned 1	Eddard	AGOT	5		Cersei, Jaime, Tyrion, Tommen, Joffrey, Myrcella, Robert	Winterfell		
+298	5/20	Robert arrives in Winterfell	Ned 1	Eddard	AGOT	5		Cersei, Jaime, Tyrion, Tommen, Joffrey, Myrcella, Robert, Arya	Winterfell		
 298	5/20	Welcoming feast	Jon 1	Jon	AGOT	6					
 298	5/25	Dany's 14th Birthday. On "the far side of the Dothraki sea"	Dany 3	Daenerys	AGOT	24	Realizes she's pregnant. "It was her fourteenth name day"				
-298	5/25	Decision to go South, Jon to NW	Cat 2	Catelyn	AGOT	7	A few days later. "Your brother Benjen came to me about Jon a few days ago. It seems the boy aspires to take the black.” Decision to depart in a fortnight.	Catelyn, Ned, Robb, Sansa, Bran, Theon, Jon, Rickon	Winterfell		
+298	5/25	Decision to go South, Jon to NW	Cat 2	Catelyn	AGOT	7	A few days later. "Your brother Benjen came to me about Jon a few days ago. It seems the boy aspires to take the black.” Decision to depart in a fortnight.	Catelyn, Ned, Robb, Sansa, Bran, Theon, Jon, Rickon, Arya	Winterfell		
 298	5/26	Crooked stitches	Arya 1	Arya	AGOT	8	No contextual evidence for when this chapter happens.				
 298	6/9	Viserys, mounted again, arrives in Vaes Dothrak	Dany 4	Daenerys	AGOT	37					
 298	6/9	Bran pushed from window by Jaime Lannister	Bran 2	Bran	AGOT	9	Supposed to depart for the south the next day.	Bran, Cersei, Jaime, Rickon	Winterfell		
 298	6/14	Tyrion slaps Joffrey, wolves howling	Tyrion 1	Tyrion	AGOT	10	Bran has been unconscious "four days with no change."	Tyrion, Joffrey	Winterfell		
-298	6/22	Everyone leaves Winterfell	Jon 2	Jon	AGOT	11	Cat has been by Bran's bed "close on a fortnight."				
+298	6/22	Everyone leaves Winterfell	Jon 2	Jon	AGOT	11	Cat has been by Bran's bed "close on a fortnight."	Cersei, Jaime, Tommen, Joffrey, Myrcella, Robert, Ned, Sansa, Arya	Winterfell		
 298	6/30	Assassin to kill Bran	Cat 3	Catelyn	AGOT	15	"Ned and the girls were eight days gone " Robb still 14.	Bran, Catelyn	Winterfell		
 298		News of Dany's wedding, Barrowlands	Ned 2	Eddard	AGOT	13	Mormont sent word to Varys from Pentos about Dany's marriage, Varys sent a rider from KL to give Robert the news				
 298	7/4	Cat leaving Winterfell	Cat 3	Catelyn	AGOT	15	"When she opened them again, they told her that she had slept four days."	Catelyn	Winterfell		
@@ -286,7 +286,7 @@
 300	1/20	Dragons chained	Dany 2	Daenerys	ADWD	12	More Harpy killings. Daario has been gone a long time. Dragons chained. There were three attempts to chain Drogon, leading to him flying away.				
 											
 300	1/22	Stays and leaves in village mountain of the moon	Arya 12 	Ayra	ASOS	66	Rode for many days, makes it to Mountains of Moon. Dreams of pulling Cat from the water. Stays in a village there for over a fortnight, then heads back to Riverlands.	Arya	Mountains of Moon		
-300	1/23	Only cat	Sansa 7 	Sansa	ASOS	81	Lysa is already dead in AFFC Cersei 2. After the Fingers, they went to the Eyrie, spending 1 night at the Gates of the Moon. When the chapter begins, LF has been gone from the Eyrie for 4 days.	Sansa, LittleFinger	Eyrie		
+300	1/23	Only cat	Sansa 7 	Sansa	ASOS	81	Lysa is already dead in AFFC Cersei 2. After the Fingers, they went to the Eyrie, spending 1 night at the Gates of the Moon. When the chapter begins, LF has been gone from the Eyrie for 4 days.	Sansa, LittleFinger, Lysa	Eyrie		
 300	1/24	Escapes, kills Tywin	Tyrion 11 	Tyrion	ASOS	78	This is probably even later. Jaime says that Tyrion's beheading has been scheduled for tomorrow. Tyrion's voice has grown "hoarse from disuse." In Dorne there's at least a fortnight between news of Oberyn's death and news of Tywin's death.	Tyrion, Tywin	King's Landing		
 300	1/24	Night of Tywin's death	Cersei 1	Cersei	AFFC	4	Chapter goes through dawn	Cersei	King's Landing		
 300	1/24	Rosby, then two days to old stone bridge	Brienne 1 	Brienne	AFFC	5					
@@ -321,7 +321,7 @@
 300	2/24	Burning of Mance	Jon 3	Jon	ADWD	11	Only now, news of Tywin's death (from tales coming up the Kingsroad). Believable though -- no one's writing news bulletins to the Wall anymore, winterfell is empty 	Jon	Castle Black		
 300	2/27	Volantis, idea to join Windblown	Quentyn 1	Quentyn	ADWD	7	Departed Yronwood, Sunspear, Planky Town. Changes ships at Lys, stops there for at least 4 days bc Arch is sick. Then, off the coast of Disputed Lands, Quentyn's ship is attacked by corsairs. It eventually arrives at Volantis. When the chapter opens, Quentyn has been stuck in Volantis for 20 days.				
 300	2/27	Olenna and Mace gone. Kevan and Lancel leaving.	Jaime 2 	Jaime	AFFC	17	Lancel's bride has grown impatient, waiting for him and Kevan to go to Darry. Lollys baby born (so should be 8-9 months after KL riot, is currently nearly 7). Roose trapped below the Neck, Ramsay closing in on Moat Cailin. Recent news that Stannis turned up at the Wall. Redwyne fleet nearly at the city, preparing to go to Dragonstone.	Jaime	King's Landing		
-300	3/1	Sisterton	Davos 1	Davos	ADWD	10	Very bad storms on the way. Hears of Tywin's death, Lysa's death.	LittleFinger, Sansa, Lysa	Eyrie		
+300	3/1	Sisterton	Davos 1	Davos	ADWD	10	Very bad storms on the way. Hears of Tywin's death, Lysa's death.				
 											
 300	3/1	 Reaches Braavos	Arya 1	Arya	AFFC	7	Arya not yet 11	Arya	Braavos		
 300	3/1	Meets Griff's band at Ghoyan Drohe, boards Shy Maid	Tyrion 3	Tyrion	ADWD	9	Chapter starts when Tyrion is a day away from Ghoyan Drohe. Illyrio's train moves very slow.				

@@ -81,10 +81,10 @@ public sealed class CLS_Database
 		Tome affc = new Tome("A FEAST FOR CROWS","AFFC",4);
 		Tome adwd = new Tome("A DANCE WITH DRAGONS","ADWD",5);
 
-		FULL.Start = new DateTime( 297,4,22 );
+		FULL.Start = new DateTime( 298,2,24 );
 		FULL.End = new DateTime( 300,7,31 );
 
-		agot.Start = new DateTime( 297,4,22 );
+		agot.Start = new DateTime( 298,2,24 );
 		agot.End = new DateTime( 299,1,20 );
 		acok.Start = new DateTime( 299,1,22 );
 		acok.End = new DateTime( 299,10,27 );

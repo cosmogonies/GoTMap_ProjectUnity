@@ -10,6 +10,8 @@ public class GUI_MainMenu : MonoBehaviour
 
 	public string SelectedTome="ASOIAF";
 
+	public Vector2 cursor;
+
 	void Start ()
 	{
 		DontDestroyOnLoad(this.gameObject); 	// Keep the Core
@@ -54,18 +56,25 @@ public class GUI_MainMenu : MonoBehaviour
 	{
 		GUI.skin = TheGUISkin;
 		
-
-
-		Vector2 Margin = new Vector2 (Screen.width * 0.1f, Screen.height * 0.1f);
+		//Vector2 Margin = new Vector2 (Screen.width * 0.1f, Screen.height * 0.1f);
+		Vector2 Margin = new Vector2 (Screen.width * 0.0f, Screen.height * 0.0f);
 		float TITLE_HEIGHT = Screen.height * 0.2f;	// 1 +2 +2 first half of Height
 		float HeightPosition = 0;
 
 		if(! isSelectingTome)
 		{
 			GUI.skin.label.fontSize = Mathf.RoundToInt( Screen.height/10f );;
-			GUI.Label (new Rect (Margin.x, Margin.y , Screen.width - Margin.x, TITLE_HEIGHT), "A SONG OF ICE AND FIRE");
-			GUI.Label (new Rect (Margin.x, Margin.y+TITLE_HEIGHT , Screen.width - Margin.x, TITLE_HEIGHT), "a \"Game of Thrones\" interactive map");
+			//GUI.Label (new Rect (Margin.x, Margin.y , Screen.width - Margin.x, TITLE_HEIGHT), " A SONG OF ICE AND FIRE");
+			//GUI.Label (new Rect (Margin.x, Margin.y+TITLE_HEIGHT , Screen.width - Margin.x, TITLE_HEIGHT), " a \"Game of Thrones\"\n interactive map");
 
+			GUILayout.BeginArea( new Rect (Margin.x, Margin.y , Screen.width - Margin.x, Screen.height * 0.6f) );
+
+			//GUILayout.Label("A SONG OF ICE AND FIRE\na \"Game of Thrones\" interactive map");
+			GUILayout.Label("A SONG OF ICE AND FIRE");
+			GUI.skin.label.fontSize = Mathf.RoundToInt(0.7f*GUI.skin.label.fontSize);
+			GUILayout.Label("a \"Game of Thrones\" interactive map");
+
+			GUILayout.EndArea();
 		
 			
 			//GUI.skin.label.fontSize = 25;
@@ -75,7 +84,7 @@ public class GUI_MainMenu : MonoBehaviour
 			HeightPosition += CHOICE_HEIGHT;
 
 
-			HeightPosition = Screen.height*0.5f;
+			HeightPosition = Screen.height*0.6f;
 			if (GUI.Button( new Rect (Margin.x, Margin.y + HeightPosition, Screen.width - 2*Margin.x, CHOICE_HEIGHT), "THE WHOLE TIME LINE" ))
 			{
 				SelectedTome="ASOIAF";

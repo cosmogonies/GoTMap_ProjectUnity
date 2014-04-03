@@ -286,17 +286,7 @@ public class BHV_CameraMotion : MonoBehaviour
 		}
 		*/
 
-		#region FOLLOWING_GUI_LOGIC
-		string DisplayName="";
-		if(this.Following != null)
-			DisplayName = this.Following.name;
-		else
-			DisplayName = "-";
-		if ( GUI.Button( new Rect(Screen.width*0.9f,Screen.height-Screen.height*0.1f,Screen.width*0.1f,Screen.height*0.05f), DisplayName ) )
-		{
-			this.Following = null;
-		}
-		#endregion
+
 	}
 	
 	void Move(float _OffsetX=0.0f, float _OffsetY=0.0f)
