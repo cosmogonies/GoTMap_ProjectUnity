@@ -111,7 +111,8 @@ public class BHV_Storyline : MonoBehaviour
 					//Debug.Log (newEvent.Location.name);
 
 					//Now we have to set the HappeningTime:
-					newEvent.HappeningTime = this.SelectedTome.getRatio(newEvent.Date);
+					//newEvent.HappeningTime = this.SelectedTome.getRatio(newEvent.Date);
+					newEvent.HappeningTime = this.TheDatabase.TomeDict["ASOIAF"].getRatio(newEvent.Date);
 
 					newEvent.Info = Citation;
 
@@ -129,9 +130,11 @@ public class BHV_Storyline : MonoBehaviour
 			}
 		}
 
+		//initForTome();
+
 		createMotionPaths();
 
-		//Debuggin StoryLine
+		#region StoryLineDebugging
 		string LoggedBuffer="";
 		foreach( KeyValuePair<string, List<Evvent>> kvp in this.CharacterMotion)
 		{
@@ -158,8 +161,15 @@ public class BHV_Storyline : MonoBehaviour
 			}
 		}
 		Debug.LogWarning(LoggedBuffer);
+		#endregion
+	}
+
+	/*
+	void initForTome()
+	{	// if Tome are not the first ones, we have to put characters in correct previous tome position.
 
 	}
+	*/
 
 	void createMotionPaths()
 	{
@@ -190,33 +200,7 @@ public class BHV_Storyline : MonoBehaviour
 		}	
 	}
 
-
-	void Update () 
-	{
-		GUI_Main comp = this.GetComponent<GUI_Main>() as GUI_Main;
-
-		this.currentDate = convertRatioToDate(comp.ScrollValue);
-
-
-		updateCharacters(comp.ScrollValue);
-	}
-
-
-	System.DateTime convertRatioToDate(float _Ratio)
-	{
-		int DayNumbers = (this.SelectedTome.End-this.SelectedTome.Start).Days;
-		return this.SelectedTome.Start + new TimeSpan(Mathf.RoundToInt(_Ratio*(DayNumbers)),0,0,0);	//TODO: too random, must round to AN EXISTING CLOSE EVENT...
-	}
-	float convertDateToRatio(System.DateTime _Date)
-	{
-		int DateNumbers = (_Date - this.SelectedTome.Start).Days;
-		int TotalNumbers = (this.SelectedTome.End-this.SelectedTome.Start).Days;
-		return ( DateNumbers / (float)TotalNumbers );
-	}
-
-
-
-
+	
 	void createCharacterPawn(string _CharacterName)
 	{
 		Debug.Log ("Creating pawn for char="+_CharacterName);
@@ -255,9 +239,58 @@ public class BHV_Storyline : MonoBehaviour
 				}
 			*/
 		}		
-
+		
 		this.CharacterDict[_CharacterName] = newCharacter;
 	}
+
+
+	void Update () 
+	{
+		GUI_Main comp = this.GetComponent<GUI_Main>() as GUI_Main;
+
+		if(this.SelectedTome == this.TheDatabase.TomeDict["ASOIAF"])
+		{
+			updateCharacters(comp.ScrollValue);
+			this.currentDate = convertRatioToDate(comp.ScrollValue);
+		}
+		else{
+
+			float LocalTimeRatio = comp.ScrollValue;
+
+			// ScrollValue means the ratio for current selected TOme,
+			// so we have to convert it to a maximum update
+			DateTime TheDate = convertRatioToDate(comp.ScrollValue);
+		
+			float GlobalTimeRAtio = convertDateToRatio(TheDate);
+			updateCharacters(GlobalTimeRAtio);
+			this.currentDate = TheDate;
+		}
+
+
+	}
+
+
+	System.DateTime convertRatioToDate(float _Ratio)
+	{
+		int DayNumbers = (this.SelectedTome.End-this.SelectedTome.Start).Days;
+		return this.SelectedTome.Start + new TimeSpan(Mathf.RoundToInt(_Ratio*(DayNumbers)),0,0,0);	//TODO: too random, must round to AN EXISTING CLOSE EVENT...
+	}
+	float convertDateToRatio(System.DateTime _Date)
+	{
+		/*
+		int DateNumbers = (_Date - this.SelectedTome.Start).Days;
+		int TotalNumbers = (this.SelectedTome.End-this.SelectedTome.Start).Days;
+		return ( DateNumbers / (float)TotalNumbers );
+		*/
+		Tome MasterTome = this.TheDatabase.TomeDict["ASOIAF"]; //TODO: create a method that returns the MasterTome.
+		int DateNumbers = (_Date - MasterTome.Start).Days;
+		int TotalNumbers = (MasterTome.End-MasterTome.Start).Days;
+		return ( DateNumbers / (float)TotalNumbers );
+	}
+
+
+
+
 	
 	void updateCharacters(float _CurrentTimeValue)
 	{
@@ -292,7 +325,7 @@ public class BHV_Storyline : MonoBehaviour
 	}
 	
 
-	Vector3 GetPosition(float _TimeValue, Dictionary<float,Vector3> _Dict)
+	Vector3 GetPosition(float _TimeValue, Dictionary<float,Vector3> _WayPoints)
 	{	//Main fonction to give a character its position according to current Time and Database dictionary.
 		
 		float NextTimeEvent = 1.0f;
@@ -300,9 +333,8 @@ public class BHV_Storyline : MonoBehaviour
 
 		float NextTimeEvent_Delta = 1.0f;
 		float PreviousTimeEvent_Delta = 1.0f;		
-		
-		
-		foreach(KeyValuePair<float,Vector3> kvp in _Dict)
+
+		foreach(KeyValuePair<float,Vector3> kvp in _WayPoints)
 		{
 			if(kvp.Key <= _TimeValue)
 			{
@@ -322,20 +354,8 @@ public class BHV_Storyline : MonoBehaviour
 				}
 			}
 		}
-		/*
-		if(PreviousTimeEvent==0.0f) //everyone must start somewhere
-		{
-			return _Dict[min];
-			//return Vector3.zero;
-		}
-		if(NextTimeEvent==1.0f) //hum... someone has died I guess
-		{
-			return _Dict[max];
-			//return Vector3.zero;
-		}
-		*/
-		Vector3  prev = _Dict[PreviousTimeEvent];
-		Vector3  next = _Dict[NextTimeEvent];
+		Vector3  prev = _WayPoints[PreviousTimeEvent];
+		Vector3  next = _WayPoints[NextTimeEvent];
 		float LocalRatio = PreviousTimeEvent_Delta / (PreviousTimeEvent_Delta+NextTimeEvent_Delta);
 		
 		return Vector3.Lerp( prev, next, LocalRatio );

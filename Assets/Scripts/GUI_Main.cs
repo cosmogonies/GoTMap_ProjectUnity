@@ -18,6 +18,7 @@ public class GUI_Main : MonoBehaviour
 	private BHV_CameraMotion CameraMotionComp;
 
 	bool isDisplayingInfo = false;
+
 		
 	void Start () 
 	{
