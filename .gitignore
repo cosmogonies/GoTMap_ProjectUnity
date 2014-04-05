@@ -227,3 +227,5 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+*.apk
+Builds/GoTMap_v09.apk
