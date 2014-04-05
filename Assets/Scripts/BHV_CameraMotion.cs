@@ -153,6 +153,8 @@ public class BHV_CameraMotion : MonoBehaviour
 			{
 				if(Input.touchCount==1)
 				{
+
+					this.Following = null;
 					Move(Input.GetTouch(0).deltaPosition.x*-1.0f,Input.GetTouch(0).deltaPosition.y*-1.0f);
 					
 					/*

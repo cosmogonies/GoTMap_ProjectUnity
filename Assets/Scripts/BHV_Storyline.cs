@@ -234,12 +234,12 @@ public class BHV_Storyline : MonoBehaviour
 				LabelTransform.localScale = new Vector3(50.0f,50.0f,50.0f); //TOCLEAN
 				
 			}
-			/*
-				if (children[k].name=="Body" || children[k].name=="Head")
-				{
-					children[k].gameObject.renderer.material.color = getCharacterColor(CharacterName);
-				}
-			*/
+
+			if (children[k].name=="Body" || children[k].name=="Head")
+			{
+				children[k].gameObject.renderer.material.color = getCharacterColor(_CharacterName);
+			}
+
 		}		
 		
 		this.CharacterDict[_CharacterName] = newCharacter;
@@ -277,17 +277,19 @@ public class BHV_Storyline : MonoBehaviour
 		int DayNumbers = (this.SelectedTome.End-this.SelectedTome.Start).Days;
 		return this.SelectedTome.Start + new TimeSpan(Mathf.RoundToInt(_Ratio*(DayNumbers)),0,0,0);	//TODO: too random, must round to AN EXISTING CLOSE EVENT...
 	}
-	float convertDateToRatio(System.DateTime _Date)
+	public float convertDateToRatio(System.DateTime _Date)
 	{
-		/*
+
 		int DateNumbers = (_Date - this.SelectedTome.Start).Days;
 		int TotalNumbers = (this.SelectedTome.End-this.SelectedTome.Start).Days;
 		return ( DateNumbers / (float)TotalNumbers );
-		*/
+
+		/*
 		Tome MasterTome = this.TheDatabase.TomeDict["ASOIAF"]; //TODO: create a method that returns the MasterTome.
 		int DateNumbers = (_Date - MasterTome.Start).Days;
 		int TotalNumbers = (MasterTome.End-MasterTome.Start).Days;
 		return ( DateNumbers / (float)TotalNumbers );
+		*/
 	}
 
 
@@ -420,10 +422,15 @@ public class BHV_Storyline : MonoBehaviour
 		CharacterColorDict["Cersei"] = new Color(0.725f,0.114f,0.318f);
 		//CharacterColorDict["Daenery"] = new Color(1.0f,0.0f,0.0f);
 		CharacterColorDict["Ned"] = new Color(0.550f,0.645f,0.753f);
+
+		CharacterColorDict["Lysa"] = new Color(0.601f,1.0f,0.894f);
+		CharacterColorDict["LittleFinger"] = new Color(0.601f,1.0f,0.894f);
 		
 		CharacterColorDict["Jaime"] = new Color(0.5f,0.5f,0.5f);
 		CharacterColorDict["Joffrey"] = new Color(0.873f,0.882f,0.484f);
+
 		CharacterColorDict["Jon"] = new Color(1.0f,1.0f,1.0f);
+		CharacterColorDict["Sam"] = new Color(1.0f,0.8f,0.8f);
 		
 		CharacterColorDict["Renly"] = new Color(0.435f,0.652f,0.319f);
 		CharacterColorDict["Rickon"] = new Color(0.463f,0.537f,0.620f);
@@ -435,6 +442,8 @@ public class BHV_Storyline : MonoBehaviour
 		CharacterColorDict["Stannis"] = new Color(0.031f,0.196f,0.031f);
 		CharacterColorDict["Theon"] = new Color(0.268f,0.249f,0.471f);
 		CharacterColorDict["Tyrion"] = new Color(0.686f,0.471f,0.256f);
+		CharacterColorDict["Tommen"] = new Color(0.786f,0.471f,0.256f);
+		CharacterColorDict["Tywinn"] = new Color(0.886f,0.471f,0.256f);
 		
 		if(CharacterColorDict.ContainsKey(_CharacterName))
 		{
@@ -475,9 +484,11 @@ public class BHV_Storyline : MonoBehaviour
 		GUIContent current = new GUIContent( _Character.name);
 
 		float neededWidth = GUI.skin.GetStyle("button").CalcSize(current).x;
-			
+
+		float SmallOffsetX=24f;
+
 		//GUI.Label( new Rect(targetScreenPosition.x,Screen.height-targetScreenPosition.y,LetterWidth*theName.Length,LetterWidth*1.5f) , theName,LabelStyle);//MAGIC 0.5f: we assume that in average a width letter is half of its height in our font
-		if(GUI.Button( new Rect(targetScreenPosition.x,Screen.height-targetScreenPosition.y,neededWidth,25.0f) , current))
+		if(GUI.Button( new Rect(targetScreenPosition.x-SmallOffsetX,Screen.height-targetScreenPosition.y,neededWidth,25.0f) , current))
 		{
 			//Declaring if following :
 			/*
@@ -500,6 +511,8 @@ public class BHV_Storyline : MonoBehaviour
 	
 	public void toggleCharacterFocus(GameObject _Character)
 	{
+		Debug.Log ("toggleCharacterFocus("+_Character.name+")");
+
 		bool currentStatus = this.CharacterPath[_Character].gameObject.activeSelf;
 		foreach(GameObject currentCharGO in  this.CharacterDict.Values )
 		{
@@ -534,53 +547,64 @@ public class BHV_Storyline : MonoBehaviour
 		}
 		return ClosestEvent;
 	}
-	public float getPreviousEvent()
+	public Evvent getPreviousEvent()
 	{
 		Evvent PreviousEvent = StoryLine[0];
 		float DeltaSmallest=1.0f;
 		float currentDateAsRatio = this.convertDateToRatio(this.currentDate);	//FIXME: could directly acess to GUIMAIn.ScrollValue...
 		foreach(Evvent currentEvent in StoryLine  )
 		{
-			float currentRatio = this.convertDateToRatio(currentEvent.Date);
-			if( currentDateAsRatio-currentRatio>0 )	//currentEvent is a previous one.
+			if( (this.SelectedTome==this.TheDatabase.TomeDict["ASOIAF"]) || (currentEvent.Book == this.SelectedTome) )
 			{
-				if( currentDateAsRatio-currentRatio< DeltaSmallest )
+				float currentRatio = this.convertDateToRatio(currentEvent.Date);
+				if( currentDateAsRatio-currentRatio>0 )	//currentEvent is a previous one.
 				{
-					DeltaSmallest = currentDateAsRatio-currentRatio;
-					PreviousEvent = currentEvent;
+					if( currentDateAsRatio-currentRatio< DeltaSmallest )
+					{
+						DeltaSmallest = currentDateAsRatio-currentRatio;
+						PreviousEvent = currentEvent;
+					}
 				}
 			}
 		}
-		return convertDateToRatio(PreviousEvent.Date);
+		return PreviousEvent;
 	}
-	public float getNextEvent()
+
+	//public float getNextEvent()
+	public Evvent getNextEvent()
 	{
 		Evvent NextEvent = StoryLine[0];
 		float DeltaSmallest=1.0f;
 		float currentDateAsRatio = this.convertDateToRatio(this.currentDate);	//FIXME: could directly acess to GUIMAIn.ScrollValue...
 		foreach(Evvent currentEvent in StoryLine  )
 		{
-			float currentRatio = this.convertDateToRatio(currentEvent.Date);
-			if( currentRatio - currentDateAsRatio>0 )	//currentEvent is a next one.
+			if( (this.SelectedTome==this.TheDatabase.TomeDict["ASOIAF"]) || (currentEvent.Book == this.SelectedTome) )
 			{
-				if( currentRatio-currentDateAsRatio< DeltaSmallest )
+
+				float currentRatio = this.convertDateToRatio(currentEvent.Date);
+				if( currentRatio - currentDateAsRatio>0 )	//currentEvent is a next one.
 				{
-					DeltaSmallest = currentRatio-currentDateAsRatio;
-					NextEvent = currentEvent;
+					if( currentRatio-currentDateAsRatio< DeltaSmallest )
+					{
+						DeltaSmallest = currentRatio-currentDateAsRatio;
+						NextEvent = currentEvent;
+					}
 				}
 			}
 		}
-		return convertDateToRatio(NextEvent.Date);
+		return NextEvent;
 	}
 
 
 	public string getCurrentEventName()
 	{
+		/*
 		foreach(Evvent currentEvent in this.StoryLine  )
 		{
 			if( this.currentDate == currentEvent.Date)	//Maybe we can add here a almost equal threshold.... (avoid float aproximation)
 				return currentEvent.Name;
 		}
+		*/
 		string SelectedTomeName = "T"+this.SelectedTome.Order +": "+ this.SelectedTome.Name;
 		return SelectedTomeName;
 	}

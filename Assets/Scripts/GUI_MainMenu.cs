@@ -10,6 +10,8 @@ public class GUI_MainMenu : MonoBehaviour
 
 	public string SelectedTome="ASOIAF";
 
+	public Texture QuitButtonTexture;
+	
 	public Vector2 cursor;
 
 	void Start ()
@@ -67,7 +69,7 @@ public class GUI_MainMenu : MonoBehaviour
 			//GUI.Label (new Rect (Margin.x, Margin.y , Screen.width - Margin.x, TITLE_HEIGHT), " A SONG OF ICE AND FIRE");
 			//GUI.Label (new Rect (Margin.x, Margin.y+TITLE_HEIGHT , Screen.width - Margin.x, TITLE_HEIGHT), " a \"Game of Thrones\"\n interactive map");
 
-			GUILayout.BeginArea( new Rect (Margin.x, Margin.y , Screen.width - Margin.x, Screen.height * 0.6f) );
+			GUILayout.BeginArea( new Rect (0f, 0f , Screen.width - 0f, Screen.height * 0.6f) );
 
 			//GUILayout.Label("A SONG OF ICE AND FIRE\na \"Game of Thrones\" interactive map");
 			GUILayout.Label("A SONG OF ICE AND FIRE");
@@ -85,13 +87,13 @@ public class GUI_MainMenu : MonoBehaviour
 
 
 			HeightPosition = Screen.height*0.6f;
-			if (GUI.Button( new Rect (Margin.x, Margin.y + HeightPosition, Screen.width - 2*Margin.x, CHOICE_HEIGHT), "THE WHOLE TIME LINE" ))
+			if (GUI.Button( new Rect (Screen.width*0.1f, Margin.y + HeightPosition, Screen.width - 2*(Screen.width*0.1f), CHOICE_HEIGHT), "THE WHOLE TIME LINE" ))
 			{
 				SelectedTome="ASOIAF";
 				Application.LoadLevel("Map");
 			}
 
-			if (GUI.Button( new Rect (Margin.x, Margin.y + HeightPosition+CHOICE_HEIGHT*2, Screen.width - 2*Margin.x, CHOICE_HEIGHT), "SELECT A TOME" ))
+			if (GUI.Button( new Rect (Screen.width*0.1f, Margin.y + HeightPosition+CHOICE_HEIGHT*2, Screen.width - 2*(Screen.width*0.1f), CHOICE_HEIGHT), "SELECT A TOME" ))
 				isSelectingTome = true;
 		}
 		else
@@ -136,9 +138,17 @@ public class GUI_MainMenu : MonoBehaviour
 			}
 
 			GUI.skin.label.fontSize = 20;
-			GUI.skin.label.font.material.color = Color.gray;
+			//GUI.skin.label.font.material.color = Color.gray;
+			GUI.skin.label.font.material.color = Color.red;
 			GUI.Label( new Rect (Margin.x+Screen.width*0.3f, Margin.y, Screen.width*0.5f, CHOICE_HEIGHT), "Do not pick an unread book to avoid spoilers!" );
 			GUI.skin.label.font.material.color = Color.white;
 		}
+
+
+		if( GUI.Button( new Rect( Screen.width*0.9f, 0f, Screen.width*0.1f,Screen.width*0.1f), QuitButtonTexture))
+		{
+			Application.Quit();
+		}
+
 	}
 }

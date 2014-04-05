@@ -61,9 +61,6 @@
      <Compile Include="Assets\Plugins\___Standard Assets\Image Effects (Pro Only)\TwirlEffect.cs" />
      <Compile Include="Assets\Plugins\___Standard Assets\Image Effects (Pro Only)\VortexEffect.cs" />
      <Compile Include="Assets\Plugins\iTween.cs" />
-     <Compile Include="Assets\Plugins\iTween\Sample\MoveSample.cs" />
-     <Compile Include="Assets\Plugins\iTween\Sample\RotateSample.cs" />
-     <Compile Include="Assets\Plugins\iTween\Sample\SampleInfo.cs" />
      <None Include="Assets\Plugins\___Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Plugins\___Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseEffectShaderRGB.shader" />
      <None Include="Assets\Plugins\___Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\SeparableWeightedBlurDof34.shader" />
@@ -76,7 +73,6 @@
      <None Include="Assets\Plugins\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\TiltShiftHdrLensBlur.shader" />
      <None Include="Assets\Plugins\___Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\VignetteShader.shader" />
      <None Include="Assets\Plugins\___Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\DepthOfFieldScatter.shader" />
-     <None Include="Assets\Plugins\iTween\ReadMe!\ReadMe!.txt" />
      <None Include="Assets\Plugins\___Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\MotionBlur.shader" />
      <None Include="Assets\Plugins\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\MobileBloom.shader" />
      <None Include="Assets\Plugins\___Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GlowCompose.shader" />

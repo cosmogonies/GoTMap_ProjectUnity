@@ -9,12 +9,16 @@ public class GUI_TimeLine : MonoBehaviour
 	BHV_Storyline StorylineComponent;
 
 	float MAX_LENGTH = 0f;	//All years in pixels.
-	float currentCursor = 0f;
+
+	float baseCursor = 0f;
+	float currentCursorIt = 0f;
 	
 	List<DateTime> EventList ;
 
+	public bool isDisplayingTimeLine = false;
+	public bool isCameraGoingBack = false;
+	
 	private Transform CameraTransform;
-
 	//Init
 	private Vector3 CameraInitPos;
 	private Quaternion CameraInitRot;
@@ -22,17 +26,18 @@ public class GUI_TimeLine : MonoBehaviour
 	public  GameObject TimeLine_CameraPos;
 	public  GameObject TimeLine_GoalLookAt;
 	public float damping = 1.0f;	//to control the rotation 
-
 	float threshold = 1f;
 	Vector3 currentVelocity;
 
-	public bool isDisplayingTimeLine = false;
+	private Dictionary<Evvent, float> EventToCursorDict ; // Evvent => Cursor position in timeline (pixels)
 
 	//void OnEnable ()
 	void Start ()
 	{
 		//this.TheDatabase = CLS_Database.Instance;	//singleton pattern
 		StorylineComponent = this.gameObject.GetComponent<BHV_Storyline>();
+
+		this.EventToCursorDict = new Dictionary<Evvent, float>();
 
 		currentVelocity = Vector3.forward;//CameraTransform.forward;
 
@@ -52,8 +57,18 @@ public class GUI_TimeLine : MonoBehaviour
 		}
 		else
 		{
-			this.gameObject.transform.position = Vector3.SmoothDamp(this.gameObject.transform.position, CameraInitPos, ref currentVelocity,1.0f);
-			this.gameObject.transform.rotation = Quaternion.Slerp(this.gameObject.transform.rotation, CameraInitRot, Time.deltaTime * damping);
+			if(isCameraGoingBack)
+			{
+				this.gameObject.transform.position = Vector3.SmoothDamp(this.gameObject.transform.position, CameraInitPos, ref currentVelocity,1.0f);
+				this.gameObject.transform.rotation = Quaternion.Slerp(this.gameObject.transform.rotation, CameraInitRot, Time.deltaTime * damping);
+
+				if( Vector3.Distance(this.gameObject.transform.position, CameraInitPos)<100f)
+					isCameraGoingBack =false;
+
+			}
+			else
+			{
+			}
 		}
 	}
 
@@ -61,18 +76,64 @@ public class GUI_TimeLine : MonoBehaviour
 	{
 		if( isDisplayingTimeLine )
 		{
+
+			/*
+			if(this.EventToCursorDict.Count==0)
+				baseCursor = 0;
+			else
+			{
+				//Get nearest Event from current Date
+				int smallestDelta = int.MaxValue;
+				Evvent TheEvent = null;
+				foreach( KeyValuePair<Evvent, float> kvp in this.EventToCursorDict)
+				{
+					int duration = Mathf.Abs((kvp.Key.Date - this.StorylineComponent.currentDate).Days);
+					if( duration < smallestDelta)
+					{
+						TheEvent = kvp.Key;
+						smallestDelta = duration;
+					}
+				}
+				baseCursor = -this.EventToCursorDict[TheEvent]*1.0f;
+			}
+			*/
+
+
 			System.TimeSpan duration = StorylineComponent.SelectedTome.End -StorylineComponent.SelectedTome.Start;
 			System.TimeSpan delta = StorylineComponent.currentDate -StorylineComponent.SelectedTome.Start;
-			currentCursor = -(delta.Days/ (float)duration.Days) * MAX_LENGTH;
+
+			float ratio = delta.Days/ (float)duration.Days;
+			baseCursor = -(ratio) * MAX_LENGTH;	//THIS IS NOT ACCURATE
+
+			//currentCursor = 0;
+			/*
+			int smallestDelta= (StorylineComponent.SelectedTome.End -StorylineComponent.SelectedTome.Start).Days;
+
+			if(this.EventToCursorDict.Count==0)
+				currentCursor = 0;
+			else
+			{
+				//Get nearest Event from current Date
+				float chosenCursor=0f;
+				Evvent TheEvent = null;
+				foreach( KeyValuePair<Evvent, float> kvp in this.EventToCursorDict)
+				{
+					if( (kvp.Key.Date -StorylineComponent.SelectedTome.Start).Days  < smallestDelta)
+						TheEvent = kvp.Key;
+				}
+				chosenCursor = this.EventToCursorDict[TheEvent];
+				currentCursor = chosenCursor;
+			}*/
 
 			//Maybe we have to put the current Date at the CENTER of the Screen
-			currentCursor += Screen.width *0.5f;
+			//currentCursor += Screen.width *0.5f;
 
-			//currentCursor *= 0.001f;
+			drawCalendar();
 
-			//Debug.Log (delta.Days/ (float)duration.Days);
+			//GUI.Button( new Rect(Screen.width*0.3f,Screen.height*0.5f,Screen.width*0.6f,Screen.height*0.3f),  StorylineComponent.getCurrentEvent().Name+"\n"+this.StorylineComponent.getCurrentEvent().Info.Replace('.','\n'));
+			GUI.Button( new Rect(Screen.width*0.3f,Screen.height*0.5f,Screen.width*0.6f,Screen.height*0.1f),  StorylineComponent.getCurrentEvent().Name);
+			GUI.Button( new Rect(Screen.width*0.3f,Screen.height*0.6f,Screen.width*0.6f,Screen.height*0.3f),  this.StorylineComponent.getCurrentEvent().Info.Replace('.','\n'));
 
-			//GUI.Button( new Rect(Screen.width*0.1f,Screen.height*0.1f,Screen.width*0.8f,Screen.height*0.7f),  "HUHU");
 
 			/*
 			if(Input.touchCount>0)
@@ -81,15 +142,11 @@ public class GUI_TimeLine : MonoBehaviour
 				currentCursor += FrameMovement.x;
 			}
 			*/
-			drawCalendar();
 
-
-
-			GUI.Button( new Rect(Screen.width*0.3f,Screen.height*0.5f,Screen.width*0.6f,Screen.height*0.3f),  StorylineComponent.getCurrentEvent().Name+"\n"+this.StorylineComponent.getCurrentEvent().Info.Replace('.','\n'));
 
 		}
-
 	}
+
 
 
 
@@ -103,6 +160,12 @@ public class GUI_TimeLine : MonoBehaviour
 		int currentYear = 0;
 		MAX_LENGTH =0f;
 
+		float SmallestDeltaFromScreen=float.MaxValue;
+		Evvent centralEvent;
+		centralEvent = StorylineComponent.getCurrentEvent();
+
+		currentCursorIt = this.baseCursor;
+
 		foreach(Evvent currentEvent in StorylineComponent.StoryLine)    //Be carefull, The list must be ordered chronologically...
 		{
 			System.DateTime currentEventDate = currentEvent.Date;
@@ -112,7 +175,8 @@ public class GUI_TimeLine : MonoBehaviour
 			if( currentEventDate.Year !=  currentYear)
 			{
 				int cnt = countEventsForYear( currentEventDate.Year );
-				GUI.Button( new Rect ( currentCursor,ATOM_HEIGHT, cnt*ATOM_WIDTH, ATOM_HEIGHT) , currentEventDate.Year.ToString() );
+				if(GUI.Button( new Rect ( currentCursorIt,ATOM_HEIGHT, cnt*ATOM_WIDTH, ATOM_HEIGHT) , currentEventDate.Year.ToString() ))
+					Debug.Log (currentEventDate.Year.ToString());
 				currentYear = currentEventDate.Year;
 				MAX_LENGTH += cnt*ATOM_WIDTH;
 			}
@@ -123,16 +187,41 @@ public class GUI_TimeLine : MonoBehaviour
 			if( currentEventDate.Month !=  currentMonth)
 			{
 				int cnt = countEventsForMonth( currentEventDate.Month, currentEventDate.Year );
-				GUI.Button( new Rect ( currentCursor,ATOM_HEIGHT*2, cnt*ATOM_WIDTH, ATOM_HEIGHT) , currentEventDate.ToString("MMMM") );
+				GUI.Button( new Rect ( currentCursorIt,ATOM_HEIGHT*2, cnt*ATOM_WIDTH, ATOM_HEIGHT) , currentEventDate.ToString("MMMM") );
 				currentMonth = currentEventDate.Month;
+
 			}
 			#endregion
 			
-			GUI.Button( new Rect ( currentCursor,ATOM_HEIGHT*3, ATOM_WIDTH, ATOM_HEIGHT) , currentEventDate.Day.ToString() );
+			GUI.Button( new Rect ( currentCursorIt,ATOM_HEIGHT*3, ATOM_WIDTH, ATOM_HEIGHT) , currentEventDate.Day.ToString() );
+			this.EventToCursorDict[currentEvent]= currentCursorIt;	//storing the offset from base
+
 			//Debug.Log(new Rect ( currentCursor,ATOM_HEIGHT*3, ATOM_WIDTH, ATOM_HEIGHT) );
 			//Debug.Log( currentEventDate.Day.ToString() );
-			currentCursor += ATOM_WIDTH;
+			currentCursorIt += ATOM_WIDTH;
+
+			//calculate delta
+			if( ( Mathf.Abs(Screen.width*0.5f-currentCursorIt))< SmallestDeltaFromScreen )
+			{
+				SmallestDeltaFromScreen = Mathf.Abs(Screen.width*0.5f-currentCursorIt);
+				centralEvent= currentEvent;
+			}
+
+
 		}
+
+		//Debug.Log ("Central Event is ="+centralEvent.Date.Day+"/"+centralEvent.Date.Month+"/"+centralEvent.Date.Year);
+		//System.TimeSpan delta = centralEvent.Date - StorylineComponent.currentDate;
+		//TimeSpan currentDateAsDuration = StorylineComponent.currentDate - StorylineComponent.SelectedTome.Start;
+		//TimeSpan centralEventDateAsDuration = centralEvent.Date - StorylineComponent.SelectedTome.Start;
+		//float ratio = (currentDateAsDuration.Days+1) / (float)centralEventDateAsDuration.Days;
+
+		//Debug.Log ( StorylineComponent.SelectedTome.Start );
+
+		//Debug.Log (currentDateAsDuration.Days);
+		//Debug.Log (centralEventDateAsDuration.Days);
+		//Debug.Log (ratio);
+		//currentCursor *= ratio;
 
 	}
 
