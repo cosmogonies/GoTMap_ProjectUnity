@@ -39,7 +39,8 @@ public class GUI_Main : MonoBehaviour
 		if(GUI.Button(new Rect(Screen.width*0.8f,0f,Screen.width*0.2f,Screen.height*0.05f),"TimeLine"))
 		{
 			isDisplayingTimeLine = ! isDisplayingTimeLine;
-			this.gameObject.GetComponent<GUI_TimeLine>().enabled =isDisplayingTimeLine;
+			this.gameObject.GetComponent<GUI_TimeLine>().isDisplayingTimeLine = !this.gameObject.GetComponent<GUI_TimeLine>().isDisplayingTimeLine;
+			//this.gameObject.GetComponent<GUI_TimeLine>().enabled =isDisplayingTimeLine;
 		}
 		#endregion
 
