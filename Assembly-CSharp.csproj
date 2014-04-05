@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\GUI_Label.cs" />
      <Compile Include="Assets\Scripts\GUI_Main.cs" />
      <Compile Include="Assets\Scripts\GUI_MainMenu.cs" />
+     <Compile Include="Assets\Scripts\GUI_TimeLine.cs" />
      <Compile Include="Assets\Scripts\WaveOScillation.cs" />
      <None Include="Assets\Plugins\___Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Plugins\___Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseEffectShaderRGB.shader" />

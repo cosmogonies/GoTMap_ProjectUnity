@@ -12,8 +12,10 @@ public class BHV_Storyline : MonoBehaviour
 	public GameObject Pawn_Male;
 	public GameObject Pawn_Female;
 	
-	CLS_Database TheDatabase;
-	private List<Evvent> StoryLine;
+	public CLS_Database TheDatabase;
+
+	//Maybe StoryLine could be moved into CLS_Database..
+	public  List<Evvent> StoryLine;
 	
 	public Dictionary<string,GameObject> CharacterDict;
 	public Dictionary<string,List<Evvent>> CharacterMotion; // CharName => <event1,event2>
@@ -37,7 +39,7 @@ public class BHV_Storyline : MonoBehaviour
 		GameObject Kernel = GameObject.FindGameObjectWithTag("Core");
 		GUI_MainMenu KernelComp = Kernel.GetComponent<GUI_MainMenu>();
 
-		//this.SelectedTome = this.TheDatabase.TomeList[0];	//TODO: change that dynamically, but for now, all tomes are computed.
+
 		this.SelectedTome = this.TheDatabase.TomeDict[KernelComp.SelectedTome];	
 		Kernel.SetActive(false);
 

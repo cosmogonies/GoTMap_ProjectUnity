@@ -18,7 +18,7 @@ public class GUI_Main : MonoBehaviour
 	private BHV_CameraMotion CameraMotionComp;
 
 	bool isDisplayingInfo = false;
-
+	bool isDisplayingTimeLine = false;
 		
 	void Start () 
 	{
@@ -28,6 +28,23 @@ public class GUI_Main : MonoBehaviour
 
 	void OnGUI () 
 	{
+
+		#region GUI_HEADER
+		if(GUI.Button(new Rect(0f,0f,Screen.width*0.1f,Screen.height*0.05f),"<back"))
+		{
+			GameObject Kernel = GameObject.FindGameObjectWithTag("Core");
+			DestroyImmediate(Kernel);
+			Application.LoadLevel("MainMenu");
+		}
+		if(GUI.Button(new Rect(Screen.width*0.8f,0f,Screen.width*0.2f,Screen.height*0.05f),"TimeLine"))
+		{
+			isDisplayingTimeLine = ! isDisplayingTimeLine;
+			this.gameObject.GetComponent<GUI_TimeLine>().enabled =isDisplayingTimeLine;
+		}
+		#endregion
+
+
+
 		TITLE_HEIGHT=Screen.height*0.1f;	// 10% of height goes to TimeSlider.
 		float INFO_HEIGHT=Screen.height*0.05f;	// 5% of height goes to Info display.
 
