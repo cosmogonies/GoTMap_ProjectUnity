@@ -7,6 +7,7 @@ using System.Collections.Generic;
 public class BHV_Storyline : MonoBehaviour 
 {	//Management of interaction involving the story.
 	public Tome SelectedTome = null ; //if not a Tome, it is a FullTimeLine
+
 	public System.DateTime currentDate;
 
 	public GameObject Pawn_Male;
@@ -263,7 +264,13 @@ public class BHV_Storyline : MonoBehaviour
 			// so we have to convert it to a maximum update
 			DateTime TheDate = convertRatioToDate(comp.ScrollValue);
 		
-			float GlobalTimeRAtio = convertDateToRatio(TheDate);
+			//float GlobalTimeRAtio = convertDateToRatio(TheDate);
+
+			Tome MasterTome = this.TheDatabase.TomeDict["ASOIAF"]; //TODO: create a method that returns the MasterTome.
+			int DateNumbers = (TheDate - MasterTome.Start).Days;
+			int TotalNumbers = (MasterTome.End-MasterTome.Start).Days;
+			float GlobalTimeRAtio = ( DateNumbers / (float)TotalNumbers );
+
 			updateCharacters(GlobalTimeRAtio);
 			this.currentDate = TheDate;
 		}
@@ -533,6 +540,7 @@ public class BHV_Storyline : MonoBehaviour
 	{
 		Evvent ClosestEvent = StoryLine[0];
 		float DeltaSmallest=1.0f;
+
 		float currentDateAsRatio = this.convertDateToRatio(this.currentDate);	//FIXME: could directly acess to GUIMAIn.ScrollValue...
 		foreach(Evvent currentEvent in StoryLine  )
 		{
@@ -543,9 +551,19 @@ public class BHV_Storyline : MonoBehaviour
 				DeltaSmallest = Mathf.Abs(currentDateAsRatio-currentRatio);
 				ClosestEvent = currentEvent;
 			}
-
 		}
+
 		return ClosestEvent;
+
+		//Okay, BUT, a same ratio could lead to several SAME DATE eventS ....
+		//List<Evvent> ClosestEvents = new List<Evvent>();
+		//foreach(Evvent currentEvent in StoryLine  )
+		//	if(currentEvent.Date == ClosestEvent.Date)
+		//		ClosestEvents.Add(currentEvent);
+		//if(ClosestEvents.Count>1)
+		//	return ClosestEvents[ UnityEngine.Random.Range(0,ClosestEvents.Count) ];
+		//else
+		//	return ClosestEvent;
 	}
 	public Evvent getPreviousEvent()
 	{

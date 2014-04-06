@@ -25,6 +25,8 @@ public class BHV_CameraMotion : MonoBehaviour
 	
 	public GameObject Following;
 
+	public bool AllowMouseControl;
+
 
 	Vector2 currentFinger1 = Vector2.zero;
 	Vector2 previousFinger1 = Vector2.zero;
@@ -79,72 +81,80 @@ public class BHV_CameraMotion : MonoBehaviour
 			Move(-1.0f*Speed,0.0f);
 			*/
 		#endregion
-		
+
 		//Warning, TOUCH is considered as A MOUSE, to be careful to COMMENT this whole region when releasing to touchDevices !
-//		#region Mouse Control
-//		if(Input.GetMouseButtonDown(0))
-//		{
-//			LastMousePosition = Input.mousePosition;
-//			
-//			LastCameraPosition = Camera.main.transform.position;
-//			/*
-//			Debug.Log ("Starting slide from="+LastMousePosition.ToString());
-//			Vector3 ProjectedFinger = Camera.main.ScreenToWorldPoint(LastMousePosition);
-//			Debug.Log ("ProjectedFinger="+ProjectedFinger.ToString());
-//			
-//			LastMousePosition.y =42.0f;
-//			
-//			GameObject test = GameObject.CreatePrimitive(PrimitiveType.Cube) ;
-//			test.transform.position = LastMousePosition;
-//			test.transform.localScale*=15.0f;
-//			*/
-//		}
-//		
-//		if(Input.GetMouseButton(0))
-//		{
-//			//if(Screen.height - Input.mousePosition.y>TITLE_HEIGHT) //do not activate when
-//			if(Input.mousePosition.y>TITLE_HEIGHT*1.5f)
-//			{
-//				
-//				//Vector3 delta = Input.mousePosition - LastMousePosition;
-//				//Debug.Log("delta is ="+delta.ToString());
-//				//delta.Normalize();
-//				//Move(-1.0f*delta.x*Speed*0.1f,-1.0f*delta.y*Speed*0.1f);
-//				
-//				//Vector3 FingerPosition2D = Input.mousePosition;				
-//				//Vector3 FingerPosition3D = Camera.mainCamera.ScreenToWorldPoint(FingerPosition2D);
-//				
-//				//Vector3 delta = LastMousePosition - FingerPosition3D;
-//				
-//				//Debug.Log (delta.ToString());
-//				//Vector3 basePosition = Camera.mainCamera.ScreenToWorldPoint(LastMousePosition);
-//				
-//				
-//				Vector3 delta = Input.mousePosition - LastMousePosition;
-//				delta.z = delta.y;
-//				delta.y =0.0f;
-//				delta *=-1.0f;
-//				
-//				delta *=Speed;
-//				
-//				//Camera.mainCamera.transform.position = LastMousePosition + delta;
-//				//Camera.main.transform.Translate(delta);
-//				
-//				Vector3 newPostion = LastCameraPosition + delta;
-//				
-//				newPostion.y = Camera.main.transform.position.y; //keeping scale for external dolly behaviours.
-//
-//				//Camera.main.transform.position =  newPostion;
-//			}
-//		}
-//		
-//        if (Input.GetAxis("Mouse ScrollWheel") != 0) 
-//		{
-//            float delta = Input.GetAxis("Mouse ScrollWheel");
-//			Dolly(delta*Speed*10f);
-//        }
-//		#endregion
-		
+		#region Mouse Control
+		if(AllowMouseControl)
+		{
+			if(Input.GetMouseButtonDown(0))
+			{
+				LastMousePosition = Input.mousePosition;
+				
+				LastCameraPosition = Camera.main.transform.position;
+				/*
+				Debug.Log ("Starting slide from="+LastMousePosition.ToString());
+				Vector3 ProjectedFinger = Camera.main.ScreenToWorldPoint(LastMousePosition);
+				Debug.Log ("ProjectedFinger="+ProjectedFinger.ToString());
+				
+				LastMousePosition.y =42.0f;
+				
+				GameObject test = GameObject.CreatePrimitive(PrimitiveType.Cube) ;
+				test.transform.position = LastMousePosition;
+				test.transform.localScale*=15.0f;
+				*/
+			}
+			
+			if(Input.GetMouseButton(0))
+			{
+
+
+				//if(Screen.height - Input.mousePosition.y>TITLE_HEIGHT) //do not activate when
+				if(Input.mousePosition.y>Screen.height*0.15f)	//bottom zone is deadzone
+				{
+
+					//Vector3 delta = Input.mousePosition - LastMousePosition;
+					//Debug.Log("delta is ="+delta.ToString());
+					//delta.Normalize();
+					//Move(-1.0f*delta.x*Speed*0.1f,-1.0f*delta.y*Speed*0.1f);
+					
+					//Vector3 FingerPosition2D = Input.mousePosition;				
+					//Vector3 FingerPosition3D = Camera.mainCamera.ScreenToWorldPoint(FingerPosition2D);
+					
+					//Vector3 delta = LastMousePosition - FingerPosition3D;
+					
+					//Debug.Log (delta.ToString());
+					//Vector3 basePosition = Camera.mainCamera.ScreenToWorldPoint(LastMousePosition);
+					
+					
+					Vector3 delta = Input.mousePosition - LastMousePosition;
+					delta.z = delta.y;
+					delta.y =0.0f;
+					delta *=-1.0f;
+					
+					delta *=MoveSpeed;
+
+					delta *= 0.01f;	// Special damping for mouse
+
+					//Camera.mainCamera.transform.position = LastMousePosition + delta;
+					//Camera.main.transform.Translate(delta);
+					
+					Vector3 newPostion = LastCameraPosition + delta;
+					
+					newPostion.y = Camera.main.transform.position.y; //keeping scale for external dolly behaviours.
+
+					Camera.main.transform.position =  newPostion;
+				}
+			}
+			
+	        if (Input.GetAxis("Mouse ScrollWheel") != 0) 
+			{
+	            float delta = Input.GetAxis("Mouse ScrollWheel");
+				Dolly(delta*DollySpeed);
+	        }
+
+		}
+		#endregion
+
 		#region Touch Control
 		if(Input.touchCount>0)
 		{
