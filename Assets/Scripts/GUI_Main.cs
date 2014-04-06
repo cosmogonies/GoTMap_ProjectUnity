@@ -82,13 +82,21 @@ public class GUI_Main : MonoBehaviour
 			PreviousScrollValueREAL = PreviousScrollValue;
 		}
 
+		if(ScrollValueREAL != PreviousScrollValueREAL)
+		{	//Update from external logic from ui (GoToNextEvent GoToPreviousEvent)
+			ScrollValue = (float) ScrollValueREAL;
+			PreviousScrollValue = ScrollValue;
+			PreviousScrollValueREAL = PreviousScrollValue;
+		}
+
 
 
 		if( GUI.Button(new Rect(0.0f,Screen.height-TITLE_HEIGHT,JUMP_WIDTH,TITLE_HEIGHT),"<[-]") )
 		{
 			//ScrollValue = StoryLineComp.getPreviousEvent();
-			Evvent previous = StoryLineComp.getPreviousEvent();
-			ScrollValue = StoryLineComp.convertDateToRatio( previous.Date );
+			//Evvent previous = StoryLineComp.getPreviousEvent();
+			//ScrollValue = StoryLineComp.convertDateToRatio( previous.Date );
+			StoryLineComp.goToPreviousEvent();
 		}
 
 		if( GUI.Button(new Rect(JUMP_WIDTH+TIME_SLIDER_WIDTH,Screen.height-TITLE_HEIGHT,JUMP_WIDTH,TITLE_HEIGHT),"[+]>") )
@@ -97,7 +105,7 @@ public class GUI_Main : MonoBehaviour
 			//Debug.Log(next.Name);
 			//ScrollValue = StoryLineComp.convertDateToRatio( next.Date );	//return Infinity after the getNextEvent
 			//ScrollValue = StoryLineComp.getNextEvent();
-			StoryLineComp.gotoNextEvent();
+			StoryLineComp.goToNextEvent();
 		}
 
 
@@ -115,10 +123,13 @@ public class GUI_Main : MonoBehaviour
 
 
 		//GUI.skin.button.fontSize = Mathf.RoundToInt(0.5f*GUI.skin.button.fontSize);
-		if ( GUI.Button( new Rect(0f,Screen.height-(INFO_HEIGHT+TITLE_HEIGHT),DATE_WIDTH,INFO_HEIGHT), StoryLineComp.currentClosestEvent.Date.ToString("dd/MM/yyy")))	//TO Do
+		if(!isDisplayingTimeLine)
 		{
-			//Call the Zoom Window, this Event Description
-			isDisplayingInfo = ! isDisplayingInfo;
+			if ( GUI.Button( new Rect(0f,Screen.height-(INFO_HEIGHT+TITLE_HEIGHT),DATE_WIDTH,INFO_HEIGHT), StoryLineComp.currentClosestEvent.Date.ToString("dd/MM/yyy")))	//TO Do
+			{
+				//Call the Zoom Window, this Event Description
+				isDisplayingInfo = ! isDisplayingInfo;
+			}
 		}
 		GUI.skin.button.fontSize =22;
 		if(isDisplayingInfo)

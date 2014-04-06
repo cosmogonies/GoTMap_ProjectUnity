@@ -1,13 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\BHV_Storyline.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GUI_TimeLine.cs">
     <Files>
-      <File FileName="Assets\Scripts\BHV_Storyline.cs" Line="613" Column="7" />
-      <File FileName="Assets\Scripts\GUI_Main.cs" Line="80" Column="19" />
-      <File FileName="Assets\Scripts\GUI_MainMenu.cs" Line="152" Column="3" />
+      <File FileName="Assets\Scripts\BHV_Storyline.cs" Line="179" Column="1" />
+      <File FileName="Assets\Scripts\GUI_Main.cs" Line="125" Column="76" />
+      <File FileName="Assets\Scripts\GUI_MainMenu.cs" Line="133" Column="38" />
       <File FileName="Assets\Scripts\BHV_CameraMotion.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\CLS_Database.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GUI_TimeLine.cs" Line="103" Column="71" />
+      <File FileName="Assets\Scripts\GUI_TimeLine.cs" Line="122" Column="26" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
