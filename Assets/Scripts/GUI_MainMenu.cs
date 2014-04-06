@@ -144,11 +144,16 @@ public class GUI_MainMenu : MonoBehaviour
 			GUI.skin.label.font.material.color = Color.white;
 		}
 
+		#if UNITY_IPHONE
+		Debug.Log("Iphone");
+		//Iphone => NO QUIT BUTTON
+		#endif
 
+		#if UNITY_ANDROID
 		if( GUI.Button( new Rect( Screen.width*0.9f, 0f, Screen.width*0.1f,Screen.width*0.1f), QuitButtonTexture))
 		{
 			Application.Quit();
 		}
-
+		#endif
 	}
 }

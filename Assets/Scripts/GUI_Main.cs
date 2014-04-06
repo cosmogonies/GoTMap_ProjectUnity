@@ -47,7 +47,10 @@ public class GUI_Main : MonoBehaviour
 			isDisplayingTimeLine = ! isDisplayingTimeLine;
 			this.gameObject.GetComponent<GUI_TimeLine>().isDisplayingTimeLine = !this.gameObject.GetComponent<GUI_TimeLine>().isDisplayingTimeLine;
 			if(isDisplayingTimeLine)
+			{
+				CameraMotionComp.Following = null;
 				this.gameObject.GetComponent<GUI_TimeLine>().isCameraGoingBack = true;
+			}
 			//this.gameObject.GetComponent<GUI_TimeLine>().enabled =isDisplayingTimeLine;
 		}
 		#endregion
@@ -130,36 +133,38 @@ public class GUI_Main : MonoBehaviour
 				//Call the Zoom Window, this Event Description
 				isDisplayingInfo = ! isDisplayingInfo;
 			}
-		}
-		GUI.skin.button.fontSize =22;
-		if(isDisplayingInfo)
-		{
-			if ( GUI.Button( new Rect(Screen.width*0.1f,Screen.height*0.3f,Screen.width*0.8f,Screen.height*0.1f),  this.StoryLineComp.getCurrentEvent().Name  ))	
-				isDisplayingInfo = false;
-			if ( GUI.Button( new Rect(Screen.width*0.1f,Screen.height*0.4f,Screen.width*0.8f,Screen.height*0.4f),  this.StoryLineComp.getCurrentEvent().Info.Replace('.','\n').Replace(',','\n')  ))	
-				isDisplayingInfo = false;
-		}
-
-
-		#region FOLLOWING_GUI_LOGIC
-		string DisplayName="";
-		if(CameraMotionComp.Following != null)
-			DisplayName = CameraMotionComp.Following.name;
-		else
-			DisplayName = "-";
-
-		if ( GUI.Button( new Rect(DATE_WIDTH+INFO_WIDTH,Screen.height-(INFO_HEIGHT+TITLE_HEIGHT),FOLLOW_WIDTH,INFO_HEIGHT), DisplayName ) )
-		{
-			//if(CameraMotionComp.Following != null){}
-			//else
+		
+			GUI.skin.button.fontSize =22;
+		
+			if(isDisplayingInfo)
 			{
-				//let's follow the next one
-				CameraMotionComp.Following = getNextFollowableCharacter();
-
+				if ( GUI.Button( new Rect(Screen.width*0.1f,Screen.height*0.3f,Screen.width*0.8f,Screen.height*0.1f),  this.StoryLineComp.getCurrentEvent().Name  ))	
+					isDisplayingInfo = false;
+				if ( GUI.Button( new Rect(Screen.width*0.1f,Screen.height*0.4f,Screen.width*0.8f,Screen.height*0.4f),  this.StoryLineComp.getCurrentEvent().Info.Replace('.','\n').Replace(',','\n')  ))	
+					isDisplayingInfo = false;
 			}
-		}
-		#endregion
+		
 
+
+			#region FOLLOWING_GUI_LOGIC
+			string DisplayName="";
+			if(CameraMotionComp.Following != null)
+				DisplayName = CameraMotionComp.Following.name;
+			else
+				DisplayName = "-";
+
+			if ( GUI.Button( new Rect(DATE_WIDTH+INFO_WIDTH,Screen.height-(INFO_HEIGHT+TITLE_HEIGHT),FOLLOW_WIDTH,INFO_HEIGHT), DisplayName ) )
+			{
+				//if(CameraMotionComp.Following != null){}
+				//else
+				{
+					//let's follow the next one
+					CameraMotionComp.Following = getNextFollowableCharacter();
+
+				}
+			}
+			#endregion
+		}
 
 
 		/*	Test to callback/event manage of GUI system.

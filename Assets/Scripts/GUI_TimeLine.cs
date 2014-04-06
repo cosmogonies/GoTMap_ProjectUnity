@@ -29,6 +29,9 @@ public class GUI_TimeLine : MonoBehaviour
 	float threshold = 1f;
 	Vector3 currentVelocity;
 
+
+	private Evvent centralEvent;
+
 	private Dictionary<Evvent, float> EventToCursorDict ; // Evvent => Cursor position in timeline (pixels)
 
 	//void OnEnable ()
@@ -130,9 +133,18 @@ public class GUI_TimeLine : MonoBehaviour
 
 			drawCalendar();
 
-			//GUI.Button( new Rect(Screen.width*0.3f,Screen.height*0.5f,Screen.width*0.6f,Screen.height*0.3f),  StorylineComponent.getCurrentEvent().Name+"\n"+this.StorylineComponent.getCurrentEvent().Info.Replace('.','\n'));
-			GUI.Button( new Rect(Screen.width*0.3f,Screen.height*0.5f,Screen.width*0.6f,Screen.height*0.1f),  StorylineComponent.getCurrentEvent().Name);
-			GUI.Button( new Rect(Screen.width*0.3f,Screen.height*0.6f,Screen.width*0.6f,Screen.height*0.3f),  this.StorylineComponent.getCurrentEvent().Info.Replace('.','\n'));
+
+			//GUI.Button( new Rect(Screen.width*0.3f,Screen.height*0.4f,Screen.width*0.6f,Screen.height*0.1f),  StorylineComponent.getCurrentEvent().Date.ToString("dd MMM YYYY"));
+			//GUI.Button( new Rect(Screen.width*0.3f,Screen.height*0.5f,Screen.width*0.6f,Screen.height*0.1f),  StorylineComponent.getCurrentEvent().Name);
+			//GUI.Button( new Rect(Screen.width*0.3f,Screen.height*0.6f,Screen.width*0.6f,Screen.height*0.3f),  this.StorylineComponent.getCurrentEvent().Info.Replace('.','\n'));
+
+			GUI.Button( new Rect(Screen.width*0.3f,Screen.height*0.4f,Screen.width*0.6f,Screen.height*0.1f),  centralEvent.Date.ToString("dd MMM yyy"));
+			GUI.Button( new Rect(Screen.width*0.3f,Screen.height*0.5f,Screen.width*0.6f,Screen.height*0.1f),  centralEvent.Name);
+			GUI.Button( new Rect(Screen.width*0.3f,Screen.height*0.6f,Screen.width*0.6f,Screen.height*0.3f),  centralEvent.Info.Replace('.','\n'));
+
+
+
+
 
 
 			/*
@@ -161,8 +173,8 @@ public class GUI_TimeLine : MonoBehaviour
 		MAX_LENGTH =0f;
 
 		float SmallestDeltaFromScreen=float.MaxValue;
-		Evvent centralEvent;
-		centralEvent = StorylineComponent.getCurrentEvent();
+
+		//centralEvent = StorylineComponent.getCurrentEvent();
 
 		currentCursorIt = this.baseCursor;
 
@@ -193,12 +205,17 @@ public class GUI_TimeLine : MonoBehaviour
 			}
 			#endregion
 			
-			GUI.Button( new Rect ( currentCursorIt,ATOM_HEIGHT*3, ATOM_WIDTH, ATOM_HEIGHT) , currentEventDate.Day.ToString() );
+			if(GUI.Button( new Rect ( currentCursorIt,ATOM_HEIGHT*3, ATOM_WIDTH, ATOM_HEIGHT) , currentEventDate.Day.ToString() ))
+			{
+				//this.StorylineComponent.currentClosestEvent = currentEvent;
+				//this.GetComponent<GUI_Main>().ScrollValueREAL = this.GetComponent<BHV_Storyline>().convertDateToRatio( currentEvent.Date );	//UGLIER: you die.
+				//centralEvent = currentEvent;
+			}
+
 			this.EventToCursorDict[currentEvent]= currentCursorIt;	//storing the offset from base
 
-			//Debug.Log(new Rect ( currentCursor,ATOM_HEIGHT*3, ATOM_WIDTH, ATOM_HEIGHT) );
-			//Debug.Log( currentEventDate.Day.ToString() );
 			currentCursorIt += ATOM_WIDTH;
+
 
 			//calculate delta
 			if( ( Mathf.Abs(Screen.width*0.5f-currentCursorIt))< SmallestDeltaFromScreen )
@@ -206,8 +223,6 @@ public class GUI_TimeLine : MonoBehaviour
 				SmallestDeltaFromScreen = Mathf.Abs(Screen.width*0.5f-currentCursorIt);
 				centralEvent= currentEvent;
 			}
-
-
 		}
 
 		//Debug.Log ("Central Event is ="+centralEvent.Date.Day+"/"+centralEvent.Date.Month+"/"+centralEvent.Date.Year);
