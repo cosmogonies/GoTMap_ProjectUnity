@@ -100,7 +100,7 @@ public class GUI_TimeLine : MonoBehaviour
 
 
 			System.TimeSpan duration = StorylineComponent.SelectedTome.End -StorylineComponent.SelectedTome.Start;
-			System.TimeSpan delta = StorylineComponent.currentDate -StorylineComponent.SelectedTome.Start;
+			System.TimeSpan delta = StorylineComponent.currentClosestEvent.Date -StorylineComponent.SelectedTome.Start;
 
 			float ratio = delta.Days/ (float)duration.Days;
 			baseCursor = -(ratio) * MAX_LENGTH;	//THIS IS NOT ACCURATE

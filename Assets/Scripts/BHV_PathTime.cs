@@ -67,8 +67,8 @@ public class BHV_PathTime : MonoBehaviour
 	void Update () 
 	{
 		//Getting current Time (ulgy method):
-		GUI_Main comp = Camera.main.GetComponent<GUI_Main>() as GUI_Main;
-		float TimeScrubbRatio = comp.ScrollValue;
+		//GUI_Main comp = Camera.main.GetComponent<GUI_Main>() as GUI_Main;
+		//float TimeScrubbRatio = comp.ScrollValue;
 
 
 

@@ -9,7 +9,13 @@ public class GUI_Main : MonoBehaviour
 	public GUISkin theGUISkin;
 	
 	public float ScrollValue=0.0f;
+	public double ScrollValueREAL=0.0;	// As dealing with ratio, float precision is not accurate...
 		
+
+	public float PreviousScrollValue=0.0f;
+	public double PreviousScrollValueREAL=0.0;
+
+	
 	public GameObject Pawn;
 
 	public float TITLE_HEIGHT;
@@ -67,10 +73,15 @@ public class GUI_Main : MonoBehaviour
 		//string SelectedTomeName = "T"+this.GetComponent<BHV_Storyline>().SelectedTome.Order +": "+ this.GetComponent<BHV_Storyline>().SelectedTome.Name;
 
 
-		//GUI.Label(new Rect(0.0f,Screen.height-TITLE_HEIGHT,Screen.width-DATE_WIDTH,TITLE_HEIGHT) , "    "+SelectedTomeName);
-		//ScrollValue = GUI.HorizontalSlider(new Rect(0.0f,20.0f,Screen.width-100.0f,50.0f) , ScrollValue, 0.0f,1.0f,SliderSkin,SliderThumb);
-		//ScrollValue = GUI.HorizontalSlider(new Rect(JUMP_WIDTH,Screen.height-TITLE_HEIGHT,TIME_SLIDER_WIDTH,TITLE_HEIGHT) , ScrollValue, 0.0f,1.0f);
 		ScrollValue = GUI.HorizontalSlider(new Rect(JUMP_WIDTH,Screen.height-TITLE_HEIGHT,TIME_SLIDER_WIDTH,TITLE_HEIGHT) , ScrollValue, 0.0f,1.0f);
+
+		if(ScrollValue != PreviousScrollValue)
+		{	//HorizontalSlider Callback
+			ScrollValueREAL = ScrollValue;
+			PreviousScrollValue = ScrollValue;
+			PreviousScrollValueREAL = PreviousScrollValue;
+		}
+
 
 
 		if( GUI.Button(new Rect(0.0f,Screen.height-TITLE_HEIGHT,JUMP_WIDTH,TITLE_HEIGHT),"<[-]") )
@@ -82,8 +93,11 @@ public class GUI_Main : MonoBehaviour
 
 		if( GUI.Button(new Rect(JUMP_WIDTH+TIME_SLIDER_WIDTH,Screen.height-TITLE_HEIGHT,JUMP_WIDTH,TITLE_HEIGHT),"[+]>") )
 		{
-			Evvent next = StoryLineComp.getNextEvent();
-			ScrollValue = StoryLineComp.convertDateToRatio( next.Date );
+			//Evvent next = StoryLineComp.getNextEvent();
+			//Debug.Log(next.Name);
+			//ScrollValue = StoryLineComp.convertDateToRatio( next.Date );	//return Infinity after the getNextEvent
+			//ScrollValue = StoryLineComp.getNextEvent();
+			StoryLineComp.gotoNextEvent();
 		}
 
 
@@ -101,7 +115,7 @@ public class GUI_Main : MonoBehaviour
 
 
 		//GUI.skin.button.fontSize = Mathf.RoundToInt(0.5f*GUI.skin.button.fontSize);
-		if ( GUI.Button( new Rect(0f,Screen.height-(INFO_HEIGHT+TITLE_HEIGHT),DATE_WIDTH,INFO_HEIGHT), StoryLineComp.currentDate.ToString("dd/MM/yyy")))	//TO Do
+		if ( GUI.Button( new Rect(0f,Screen.height-(INFO_HEIGHT+TITLE_HEIGHT),DATE_WIDTH,INFO_HEIGHT), StoryLineComp.currentClosestEvent.Date.ToString("dd/MM/yyy")))	//TO Do
 		{
 			//Call the Zoom Window, this Event Description
 			isDisplayingInfo = ! isDisplayingInfo;
@@ -111,7 +125,7 @@ public class GUI_Main : MonoBehaviour
 		{
 			if ( GUI.Button( new Rect(Screen.width*0.1f,Screen.height*0.3f,Screen.width*0.8f,Screen.height*0.1f),  this.StoryLineComp.getCurrentEvent().Name  ))	
 				isDisplayingInfo = false;
-			if ( GUI.Button( new Rect(Screen.width*0.1f,Screen.height*0.4f,Screen.width*0.8f,Screen.height*0.4f),  this.StoryLineComp.getCurrentEvent().Info.Replace('.','\n')  ))	
+			if ( GUI.Button( new Rect(Screen.width*0.1f,Screen.height*0.4f,Screen.width*0.8f,Screen.height*0.4f),  this.StoryLineComp.getCurrentEvent().Info.Replace('.','\n').Replace(',','\n')  ))	
 				isDisplayingInfo = false;
 		}
 
@@ -174,7 +188,7 @@ public class GUI_Main : MonoBehaviour
 		foreach(GameObject currentCharGO in this.StoryLineComp.CharacterDict.Values )
 		{
 			if(found)
-				if (!StoryLineComp.TheDatabase.amIDead(StoryLineComp.currentDate, currentCharGO.name))
+				if (!StoryLineComp.TheDatabase.amIDead(StoryLineComp.currentClosestEvent.Date, currentCharGO.name))
 					return currentCharGO;
 
 			if( CameraMotionComp.Following == currentCharGO ) 
@@ -183,7 +197,7 @@ public class GUI_Main : MonoBehaviour
 		}
 
 		foreach(GameObject currentCharGO in this.StoryLineComp.CharacterDict.Values )
-			if (!StoryLineComp.TheDatabase.amIDead(StoryLineComp.currentDate, currentCharGO.name))
+			if (!StoryLineComp.TheDatabase.amIDead(StoryLineComp.currentClosestEvent.Date, currentCharGO.name))
 				return currentCharGO;
 
 		return null;

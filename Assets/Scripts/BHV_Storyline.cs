@@ -8,7 +8,8 @@ public class BHV_Storyline : MonoBehaviour
 {	//Management of interaction involving the story.
 	public Tome SelectedTome = null ; //if not a Tome, it is a FullTimeLine
 
-	public System.DateTime currentDate;
+	//public System.DateTime currentDate;
+	public Evvent currentClosestEvent;
 
 	public GameObject Pawn_Male;
 	public GameObject Pawn_Female;
@@ -78,8 +79,13 @@ public class BHV_Storyline : MonoBehaviour
 
 					string Location = TokkenizedLine[9];
 
+					//To make each evvent with an unique date (avoid later bugs) let's give it a random time:
+					int rHour = UnityEngine.Random.Range(0,24);
+					int rMinute = UnityEngine.Random.Range(0,60);
+					int rSeconds = UnityEngine.Random.Range(0,60);
+
 					Evvent newEvent = new Evvent();
-					newEvent.Date = new System.DateTime(Year, Month, Day);
+					newEvent.Date = new System.DateTime(Year, Month, Day,rHour,rMinute,rSeconds);
 					newEvent.Name = EventName;
 
 					if(BookCode!="")
@@ -141,7 +147,7 @@ public class BHV_Storyline : MonoBehaviour
 		string LoggedBuffer="";
 		foreach( KeyValuePair<string, List<Evvent>> kvp in this.CharacterMotion)
 		{
-			Debug.Log ("CharacterName="+kvp.Key);
+			//Debug.Log ("CharacterName="+kvp.Key);
 			//Tome currentBook=null;
 			LoggedBuffer+="\nCharacter: "+kvp.Key;
 			foreach( Evvent ev in kvp.Value)
@@ -251,18 +257,21 @@ public class BHV_Storyline : MonoBehaviour
 	{
 		GUI_Main comp = this.GetComponent<GUI_Main>() as GUI_Main;
 
+		//Debug.Log (comp.ScrollValue);
+
 		if(this.SelectedTome == this.TheDatabase.TomeDict["ASOIAF"])
 		{
-			updateCharacters(comp.ScrollValue);
-			this.currentDate = convertRatioToDate(comp.ScrollValue);
+			updateCharacters(comp.ScrollValueREAL);
+			//this.currentDate = convertRatioToDate(comp.ScrollValue);
+			this.currentClosestEvent = this.getCurrentEvent();
 		}
 		else{
 
-			float LocalTimeRatio = comp.ScrollValue;
+			float LocalTimeRatio = comp.ScrollValueREAL;
 
 			// ScrollValue means the ratio for current selected TOme,
 			// so we have to convert it to a maximum update
-			DateTime TheDate = convertRatioToDate(comp.ScrollValue);
+			DateTime TheDate = convertRatioToDate(comp.ScrollValueREAL);
 		
 			//float GlobalTimeRAtio = convertDateToRatio(TheDate);
 
@@ -272,24 +281,42 @@ public class BHV_Storyline : MonoBehaviour
 			float GlobalTimeRAtio = ( DateNumbers / (float)TotalNumbers );
 
 			updateCharacters(GlobalTimeRAtio);
-			this.currentDate = TheDate;
+			//this.currentDate = TheDate;
+			this.currentClosestEvent = this.getCurrentEvent();
 		}
 
+
+		//Debug.Log ("Closest is ="+this.currentClosestEvent.Name );
 
 	}
 
 
 	System.DateTime convertRatioToDate(float _Ratio)
 	{
-		int DayNumbers = (this.SelectedTome.End-this.SelectedTome.Start).Days;
-		return this.SelectedTome.Start + new TimeSpan(Mathf.RoundToInt(_Ratio*(DayNumbers)),0,0,0);	//TODO: too random, must round to AN EXISTING CLOSE EVENT...
+		//Debug.Log ("==============================");
+		//Debug.Log (_Ratio);
+
+
+
+		int SelectedTome_DayNumbers = Mathf.RoundToInt( (float)(this.SelectedTome.End-this.SelectedTome.Start).TotalDays);
+		//Debug.Log (SelectedTome_DayNumbers);
+
+		int RatioInDays = Mathf.RoundToInt( _Ratio*(SelectedTome_DayNumbers) );
+		//Debug.Log (RatioInDays);
+		return this.SelectedTome.Start + new TimeSpan(RatioInDays,0,0,0);	//TODO: too random, must round to AN EXISTING CLOSE EVENT...
+		//return getCurrentEvent().Date;
 	}
 	public float convertDateToRatio(System.DateTime _Date)
 	{
 
-		int DateNumbers = (_Date - this.SelectedTome.Start).Days;
-		int TotalNumbers = (this.SelectedTome.End-this.SelectedTome.Start).Days;
-		return ( DateNumbers / (float)TotalNumbers );
+		double DateNumbers = (_Date - this.SelectedTome.Start).TotalSeconds;
+		double TotalNumbers = (this.SelectedTome.End-this.SelectedTome.Start).TotalSeconds;
+		//
+		//Debug.Log ("==============================");
+		//Debug.Log (DateNumbers);
+		//D/ebug.Log (TotalNumbers);
+
+		return (float) ( DateNumbers / (float)TotalNumbers );
 
 		/*
 		Tome MasterTome = this.TheDatabase.TomeDict["ASOIAF"]; //TODO: create a method that returns the MasterTome.
@@ -468,7 +495,7 @@ public class BHV_Storyline : MonoBehaviour
 	{
 	
 		//Am I Dead ?
-		if (this.TheDatabase.amIDead(this.currentDate, _Character.name))
+		if (this.TheDatabase.amIDead(this.currentClosestEvent.Date, _Character.name))
 		{
 			return;
 		}
@@ -539,37 +566,42 @@ public class BHV_Storyline : MonoBehaviour
 	public Evvent getCurrentEvent()
 	{
 		Evvent ClosestEvent = StoryLine[0];
-		float DeltaSmallest=1.0f;
+		double DeltaSmallest=double.MaxValue;
 
-		float currentDateAsRatio = this.convertDateToRatio(this.currentDate);	//FIXME: could directly acess to GUIMAIn.ScrollValue...
+		float currentLocalRatio = this.GetComponent<GUI_Main>().ScrollValueREAL;
+		//Debug.Log (currentLocalRatio);
+
+		System.DateTime TimeSliderAsDate = convertRatioToDate(currentLocalRatio);
+		//Debug.Log (TimeSliderAsDate);
 		foreach(Evvent currentEvent in StoryLine  )
 		{
-			float currentRatio = this.convertDateToRatio(currentEvent.Date);
 
-			if( Mathf.Abs(currentDateAsRatio-currentRatio)< DeltaSmallest )
+			TimeSpan delta = currentEvent.Date - TimeSliderAsDate; //Warning delta.TotalSeconds is SIGNED
+			//Debug.Log (delta.TotalSeconds);
+
+			double deltaAsDuration = delta.TotalSeconds;
+			if(deltaAsDuration<0)
+				deltaAsDuration*=-1;
+
+			//Debug.Log (deltaAsDuration);
+
+			if( deltaAsDuration < DeltaSmallest )
 			{
-				DeltaSmallest = Mathf.Abs(currentDateAsRatio-currentRatio);
+				DeltaSmallest = deltaAsDuration;
 				ClosestEvent = currentEvent;
+
+				//Debug.Log ("HERE");
 			}
 		}
 
 		return ClosestEvent;
-
-		//Okay, BUT, a same ratio could lead to several SAME DATE eventS ....
-		//List<Evvent> ClosestEvents = new List<Evvent>();
-		//foreach(Evvent currentEvent in StoryLine  )
-		//	if(currentEvent.Date == ClosestEvent.Date)
-		//		ClosestEvents.Add(currentEvent);
-		//if(ClosestEvents.Count>1)
-		//	return ClosestEvents[ UnityEngine.Random.Range(0,ClosestEvents.Count) ];
-		//else
-		//	return ClosestEvent;
 	}
+
 	public Evvent getPreviousEvent()
 	{
 		Evvent PreviousEvent = StoryLine[0];
 		float DeltaSmallest=1.0f;
-		float currentDateAsRatio = this.convertDateToRatio(this.currentDate);	//FIXME: could directly acess to GUIMAIn.ScrollValue...
+		float currentDateAsRatio = this.convertDateToRatio(this.currentClosestEvent.Date);	//FIXME: could directly acess to GUIMAIn.ScrollValue...
 		foreach(Evvent currentEvent in StoryLine  )
 		{
 			if( (this.SelectedTome==this.TheDatabase.TomeDict["ASOIAF"]) || (currentEvent.Book == this.SelectedTome) )
@@ -588,29 +620,48 @@ public class BHV_Storyline : MonoBehaviour
 		return PreviousEvent;
 	}
 
-	//public float getNextEvent()
-	public Evvent getNextEvent()
+	public void gotoNextEvent()
+	//public Evvent getNextEvent()
 	{
+		GUI_Main comp = this.GetComponent<GUI_Main>() as GUI_Main;
+
+		Debug.Log ("current Event found is "+currentClosestEvent.Name+" @="+comp.ScrollValue+" "+currentClosestEvent.Date.ToString("dd MMM HH:mm:ss"));
+
 		Evvent NextEvent = StoryLine[0];
-		float DeltaSmallest=1.0f;
-		float currentDateAsRatio = this.convertDateToRatio(this.currentDate);	//FIXME: could directly acess to GUIMAIn.ScrollValue...
+		double DeltaSmallest=double.MaxValue;
+		DateTime currentDate = this.currentClosestEvent.Date;
+
 		foreach(Evvent currentEvent in StoryLine  )
 		{
-			if( (this.SelectedTome==this.TheDatabase.TomeDict["ASOIAF"]) || (currentEvent.Book == this.SelectedTome) )
+			if(currentEvent != this.currentClosestEvent)
 			{
 
-				float currentRatio = this.convertDateToRatio(currentEvent.Date);
-				if( currentRatio - currentDateAsRatio>0 )	//currentEvent is a next one.
-				{
-					if( currentRatio-currentDateAsRatio< DeltaSmallest )
+				if( (this.SelectedTome==this.TheDatabase.TomeDict["ASOIAF"]) || (currentEvent.Book == this.SelectedTome) )
+				{	//We consider only evvents for selected Tome!
+
+					if( currentEvent.Date > currentDate)
 					{
-						DeltaSmallest = currentRatio-currentDateAsRatio;
-						NextEvent = currentEvent;
+						double delta = (currentEvent.Date - currentDate).TotalSeconds;
+						if(delta<0)
+							delta*=-1;
+
+						if( delta < DeltaSmallest)
+						{
+							DeltaSmallest = delta;
+
+							NextEvent = currentEvent;
+						}
 					}
 				}
 			}
 		}
-		return NextEvent;
+
+		this.currentClosestEvent = NextEvent;
+
+		comp.ScrollValue = convertDateToRatio( this.currentClosestEvent.Date );
+
+		Debug.Log ("Next Event found is "+NextEvent.Name+" @="+comp.ScrollValue+" "+NextEvent.Date.ToString("dd MMM HH:mm:ss"));
+		Debug.Log ("=====================");
 	}
 
 
